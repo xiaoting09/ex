@@ -19,20 +19,20 @@ drop table if exists ex_list;
 /*==============================================================*/
 create table ex_client
 (
-   id                   int not null auto_increment comment '×ÔÔöID',
-   type                 tinyint(1) default 0 comment 'À´Ô´:0·şÎñ¶Ë×¢²á1¿Í»§¶Ë×Ô¼º×¢²á',
-   ip                   varchar(50) comment '¿Í»§¶ËIPµØÖ·',
-   state                tinyint(1) default 1 comment '¸Ã¿Í»§¶Ë×´Ì¬0½ûÖ¹1ÆôÓÃ',
-   email                varchar(100) comment 'Í¨ÖªÓÊÏä',
-   phone                varchar(100) comment 'Í¨ÖªÊÖ»úºÅ',
-   remarks              varchar(225) comment '×¢ÊÍ',
-   create_time          datetime default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   is_enabled           tinyint(1) default 1 comment 'ÊÇ·ñ¿ÉÓÃ',
+   id                   int not null auto_increment comment 'è‡ªå¢ID',
+   type                 tinyint(1) default 0 comment 'æ¥æº:0æœåŠ¡ç«¯æ³¨å†Œ1å®¢æˆ·ç«¯è‡ªå·±æ³¨å†Œ',
+   ip                   varchar(50) comment 'å®¢æˆ·ç«¯IPåœ°å€',
+   state                tinyint(1) default 1 comment 'è¯¥å®¢æˆ·ç«¯çŠ¶æ€0ç¦æ­¢1å¯ç”¨',
+   email                varchar(100) comment 'é€šçŸ¥é‚®ç®±',
+   phone                varchar(100) comment 'é€šçŸ¥æ‰‹æœºå·',
+   remarks              varchar(225) comment 'æ³¨é‡Š',
+   create_time          datetime default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   is_enabled           tinyint(1) default 1 comment 'æ˜¯å¦å¯ç”¨',
    primary key (id)
 );
 
-alter table ex_client comment 'Òì³£¿Í»§¶Ë';
+alter table ex_client comment 'å¼‚å¸¸å®¢æˆ·ç«¯';
 
 /*==============================================================*/
 /* Table: ex_client_data                                        */
@@ -40,20 +40,20 @@ alter table ex_client comment 'Òì³£¿Í»§¶Ë';
 create table ex_client_data
 (
    id                   bigint not null auto_increment,
-   client_id            int comment '¿Í»§¶ËID',
-   parameters           text comment 'ÇëÇó²ÎÊı¼¯ºÏjson',
-   ex_class             varchar(255) comment '´íÎóÒì³£Àà',
-   ex_time              timestamp comment 'Òì³£·¢ÉúÊ±¼ä',
-   msg                  text comment '´íÎóĞÅÏ¢',
-   type                 varchar(10) comment 'ÇëÇó·½Ê½GET»¹ÊÇPOST',
-   content_type         varchar(25) comment 'ÇëÇó¸ñÊ½',
-   create_time          datetime default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   is_enabled           tinyint(1) default 1 comment 'ÊÇ·ñ¿ÉÓÃ',
+   client_id            int comment 'å®¢æˆ·ç«¯ID',
+   parameters           text comment 'è¯·æ±‚å‚æ•°é›†åˆjson',
+   ex_class             varchar(255) comment 'é”™è¯¯å¼‚å¸¸ç±»',
+   ex_time              timestamp comment 'å¼‚å¸¸å‘ç”Ÿæ—¶é—´',
+   msg                  text comment 'é”™è¯¯ä¿¡æ¯',
+   type                 varchar(10) comment 'è¯·æ±‚æ–¹å¼GETè¿˜æ˜¯POST',
+   content_type         varchar(25) comment 'è¯·æ±‚æ ¼å¼',
+   create_time          datetime default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   is_enabled           tinyint(1) default 1 comment 'æ˜¯å¦å¯ç”¨',
    primary key (id)
 );
 
-alter table ex_client_data comment 'Òì³£´íÎóÊı¾İ';
+alter table ex_client_data comment 'å¼‚å¸¸é”™è¯¯æ•°æ®';
 
 /*==============================================================*/
 /* Table: ex_clinet_list                                        */
@@ -61,15 +61,15 @@ alter table ex_client_data comment 'Òì³£´íÎóÊı¾İ';
 create table ex_clinet_list
 (
    id                   int not null auto_increment,
-   client_id            int not null comment '¿Í»§¶ËID',
-   list_id              int comment 'Òì³£ID',
-   create_time          datetime default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   is_enabled           tinyint(1) default 1 comment 'ÊÇ·ñ¿ÉÓÃ',
+   client_id            int not null comment 'å®¢æˆ·ç«¯ID',
+   list_id              int comment 'å¼‚å¸¸ID',
+   create_time          datetime default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   is_enabled           tinyint(1) default 1 comment 'æ˜¯å¦å¯ç”¨',
    primary key (id)
 );
 
-alter table ex_clinet_list comment '»úÆ÷¶ÔÓ¦µÄÒì³£¹ØÁª';
+alter table ex_clinet_list comment 'æœºå™¨å¯¹åº”çš„å¼‚å¸¸å…³è”';
 
 /*==============================================================*/
 /* Table: ex_config                                             */
@@ -77,16 +77,16 @@ alter table ex_clinet_list comment '»úÆ÷¶ÔÓ¦µÄÒì³£¹ØÁª';
 create table ex_config
 (
    id                   int not null auto_increment,
-   name                 varchar(50) comment 'Ãû³Æ',
-   value                varchar(500) comment 'Öµ',
-   description          text comment '±¸×¢',
-   create_time          datetime default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   is_enabled           tinyint(1) default 1 comment 'ÊÇ·ñ¿ÉÓÃ',
+   name                 varchar(50) comment 'åç§°',
+   value                varchar(500) comment 'å€¼',
+   description          text comment 'å¤‡æ³¨',
+   create_time          datetime default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   is_enabled           tinyint(1) default 1 comment 'æ˜¯å¦å¯ç”¨',
    primary key (id)
 );
 
-alter table ex_config comment 'ÅäÖÃ×Öµä±í';
+alter table ex_config comment 'é…ç½®å­—å…¸è¡¨';
 
 /*==============================================================*/
 /* Table: ex_list                                               */
@@ -94,15 +94,15 @@ alter table ex_config comment 'ÅäÖÃ×Öµä±í';
 create table ex_list
 (
    id                   int not null auto_increment,
-   name                 varchar(60) not null comment 'Òì³£Ãû³Æ',
-   nick_name            varchar(50) comment 'ÖĞÎÄÃû',
-   type                 tinyint(1) default 0 comment '0ÊÇÏµÍ³Ä¬ÈÏÒì³£1×Ô¶¨ÒåÒì³£',
-   remarks              varchar(255) comment 'Òì³£ËµÃ÷',
-   create_time          datetime default CURRENT_TIMESTAMP comment '´´½¨Ê±¼ä',
-   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ĞŞ¸ÄÊ±¼ä',
-   is_enabled           tinyint(1) default 1 comment 'ÊÇ·ñ¿ÉÓÃ',
+   name                 varchar(60) not null comment 'å¼‚å¸¸åç§°',
+   nick_name            varchar(50) comment 'ä¸­æ–‡å',
+   type                 tinyint(1) default 0 comment '0æ˜¯ç³»ç»Ÿé»˜è®¤å¼‚å¸¸1è‡ªå®šä¹‰å¼‚å¸¸',
+   remarks              varchar(255) comment 'å¼‚å¸¸è¯´æ˜',
+   create_time          datetime default CURRENT_TIMESTAMP comment 'åˆ›å»ºæ—¶é—´',
+   update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'ä¿®æ”¹æ—¶é—´',
+   is_enabled           tinyint(1) default 1 comment 'æ˜¯å¦å¯ç”¨',
    primary key (id)
 );
 
-alter table ex_list comment 'Òì³£¼¯ºÏ';
+alter table ex_list comment 'å¼‚å¸¸é›†åˆ';
 

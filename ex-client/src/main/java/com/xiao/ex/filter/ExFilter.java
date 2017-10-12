@@ -1,7 +1,6 @@
 package com.xiao.ex.filter;
 
 
-
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.thread.ClinetExThread;
 import com.xiao.ex.utils.IpUtils;
@@ -109,7 +108,7 @@ public class ExFilter implements Filter {
         vo.setContentType(request.getContentType());
         vo.setException(ex);
         vo.setExTime(new Date());
-        vo.setIp(IpUtils.getLocalIP());
+        vo.setIp(IpUtils.getLocalIP() + (request.getLocalPort() != 0 ? ":" + request.getLocalPort() : ""));
         String values = ValueToStr.parameters2String(request.getParameterMap());
         vo.setParameters("get:请求参数" + values + "\n post请求参数:" + (body != null ? body : ""));
         vo.setType(request.getMethod());
