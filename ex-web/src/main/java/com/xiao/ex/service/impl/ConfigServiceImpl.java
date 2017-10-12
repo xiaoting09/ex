@@ -71,7 +71,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public List<ExConfig> getConf(String name) {
         ExConfig config= new ExConfig();
-        config.setIsEnabled(Boolean.FALSE);
+        config.setIsEnabled(Boolean.TRUE);
         config.setName(name);
         return exConfigMapper.select(config);
     }

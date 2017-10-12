@@ -36,6 +36,6 @@
         <appender-ref ref="asyncFileAppender" />
     </root>
     <!-- 打印sql -->
-    <!--<logger name="com.bsp.dao" level="DEBUG"></logger>-->
+    <!--<logger name="com.xiao.ex.dao" level="DEBUG"></logger>-->
 
 </configuration>

@@ -119,7 +119,6 @@ public class ExClientListServiceImpl implements ExClientListService {
 
     //TODO:如需扩展手机发送则在此扩展
     private void sendMsg(ExClient client, String msg) {
-        client.setEmail("15623407705@163.com");
         if (StringUtils.isNotBlank(client.getEmail())) {
             msgService.sendMsg(client.getEmail(), msg);
         }
