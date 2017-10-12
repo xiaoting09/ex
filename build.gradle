@@ -1,0 +1,25 @@
+allprojects {
+    group = 'com.xiao.ex'
+    version = '1.0.0-SNAPSHOT'
+    ext {
+
+    }
+    tasks.withType(AbstractCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+    }
+    task initdirs << {
+        sourceSets*.allSource.srcDirs.flatten()*.mkdirs()
+        //webAppDir.mkdirs()
+    }
+}
