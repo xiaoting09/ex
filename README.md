@@ -3,8 +3,8 @@ java WEB异常处理框架,异常通知简单的数据统计,客户端只需要�
 
 主要功能点
 
-*异常发生时同步发送报警邮箱
-*简单的异常发生数据统计
+1、异常发生时同步发送报警邮箱
+2、简单的异常发生数据统计
 
 
 测试地址：http://ex.xiaoting.link/
@@ -17,11 +17,13 @@ java WEB异常处理框架,异常通知简单的数据统计,客户端只需要�
 
 3.将ex-client和ex-core模块打成jar包，放在需要调用的项目中
 
-4.在web.xml文件中配置filter，包名:com.xiao.ex.filter.ExFilter,init-param中配置 host(ex-web模块的服务器ip地址)，port(注册端口),time(间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,也可以在config.properties中配置key名相同
+4.在web.xml文件中配置filter,也可以在config.properties中配置key名相同
+    包名:com.xiao.ex.filter.ExFilter,
+    init-param中配置 host(ex-web模块的服务器ip地址)，port(注册端口),time(间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
 
 5.需要额外加入com.google.code.gson包
 
-6.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置文件中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
+6.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
 
 
 如果你喜欢本项目，请点击右上角的 Star，这样就可以将本项目放入您的收藏。

@@ -24,8 +24,8 @@ public class RegistryService {
     public static Remote getRegistry() {
         if (registry == null) {
             try {
-                registry=  Naming.lookup("rmi://"+getHost()+":"+getPort()+"/exService");
-            } catch (NotBoundException | MalformedURLException | RemoteException e)  {
+                registry = Naming.lookup("rmi://" + getHost() + ":" + getPort() + "/exService");
+            } catch (NotBoundException | MalformedURLException | RemoteException e) {
                 e.printStackTrace();
             }
         }
@@ -34,19 +34,23 @@ public class RegistryService {
 
     public static String getHost() {
         if (host == null) {
+
+            host = PropertiesUtils.getProperty("host");
+        }
+        if (host == null) {
             log.warning("请检查填写rpc Host地址");
-            return PropertiesUtils.getProperty("rpc.host");
         }
         return host;
     }
 
     public static Integer getPort() {
         if (port == null) {
-            String port = PropertiesUtils.getProperty("rpc.port");
+            String ports = PropertiesUtils.getProperty("port");
+            port = ports != null && ports.trim().length() > 0 ? Integer.valueOf(ports) : null;
+        }
+        if (port == null) {
             log.warning("请检查填写rpc端口号");
-            return port != null && port.trim().length() > 0 ? Integer.valueOf(port) : null;
         }
         return port;
     }
-
 }
