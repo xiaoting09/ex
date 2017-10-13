@@ -28,13 +28,20 @@ public class ExFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         String host = filterConfig.getInitParameter("host");
         String port = filterConfig.getInitParameter("port");
+        String time = filterConfig.getInitParameter("time");
         if (host != null && host.trim().length() > 0) {
             RegistryService.host = host;
         }
         if (port != null && port.trim().length() > 0) {
             RegistryService.port = Integer.valueOf(port);
         }
+        if (host != null && host.trim().length() > 0) {
+            RegistryService.host = host;
+        }
         ClinetExThread thread = new ClinetExThread();
+        if (time != null && time.length() > 0) {
+            thread.setTime(Long.valueOf(time));
+        }
         new Thread(thread).start();
     }
 

@@ -15,6 +15,10 @@ import java.util.logging.Logger;
  **/
 public class ClinetExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
+    /**
+     * 默认十分钟上报一次
+     */
+    private Long time;
     public static Logger log = Logger.getLogger(ClinetExThread.class.toString());
 
     public static void addExceptionVo(ExceptionVo vo) {
@@ -33,7 +37,7 @@ public class ClinetExThread implements Runnable {
                 }
             }
             try {
-                Thread.sleep(600000);
+                Thread.sleep(getTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -55,4 +59,11 @@ public class ClinetExThread implements Runnable {
         }
     }
 
+    public Long getTime() {
+        return time == null ? 600000L : this.time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 }
