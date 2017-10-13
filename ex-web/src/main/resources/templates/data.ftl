@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading">客户端数据</div>
+    <div class="panel-heading">异常列表</div>
     <div class="panel-body">
         <table class="table table-bordered">
             <tr>
