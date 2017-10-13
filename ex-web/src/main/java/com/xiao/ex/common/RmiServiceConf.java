@@ -22,16 +22,17 @@ public class RmiServiceConf {
 
     /*@Value("${rmi.serviceName}")
     private String serviceName;*/
-    @Value("${rmi.port}")
-    private int port;
-
+    @Value("${rmi.registry.port}")
+    private int regPort;
+    @Value("${rmi.service.port}")
+    private int servicePort;
     @Bean
     public RmiServiceExporter accountService(ExceptionService exceptionService) {
         RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
         //System.setProperty("java.rmi.server.hostname", RmiIpUtils.getRealIp());
         // 客户端通过rmi调用的端口
-        rmiServiceExporter.setRegistryPort(port);
-        rmiServiceExporter.setServicePort(12000);
+        rmiServiceExporter.setRegistryPort(regPort);
+        rmiServiceExporter.setServicePort(servicePort);
         // 客户端调用注册调用的服务名
         rmiServiceExporter.setServiceName("exService");
         // 注册的service
