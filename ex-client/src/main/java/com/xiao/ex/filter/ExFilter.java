@@ -35,9 +35,6 @@ public class ExFilter implements Filter {
         if (port != null && port.trim().length() > 0) {
             RegistryService.port = Integer.valueOf(port);
         }
-        if (host != null && host.trim().length() > 0) {
-            RegistryService.host = host;
-        }
         ClinetExThread thread = new ClinetExThread();
         if (time != null && time.length() > 0) {
             thread.setTime(Long.valueOf(time));
