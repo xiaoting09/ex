@@ -16,6 +16,10 @@ public class ExceptionVo implements Serializable {
      */
     private String exception;
     /**
+     * 异常名称
+     */
+    private String className;
+    /**
      * IP
      */
     private String ip;
@@ -84,5 +88,11 @@ public class ExceptionVo implements Serializable {
         this.exTime = exTime;
     }
 
+    public String getClassName() {
+        return className;
+    }
 
+    public void setClassName(String className) {
+        this.className = className;
+    }
 }

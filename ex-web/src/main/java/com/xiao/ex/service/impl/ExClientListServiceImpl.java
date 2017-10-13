@@ -55,7 +55,7 @@ public class ExClientListServiceImpl implements ExClientListService {
             ExClient client = clientService.findClientByIp(vo.getIp());
             ExClientData data = new ExClientData();
             data.setClientId(client.getId());
-            data.setExClass(vo.getException().getClass().getName());
+            data.setExClass(vo.getClassName());
             data.setParameters(vo.getParameters());
             data.setMsg(vo.getException());
             data.setType(vo.getType());

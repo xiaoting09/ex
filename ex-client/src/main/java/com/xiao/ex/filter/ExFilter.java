@@ -116,6 +116,7 @@ public class ExFilter implements Filter {
     private void packageVo(Exception ex, HttpServletRequest request, String body) {
         ExceptionVo vo = new ExceptionVo();
         vo.setContentType(request.getContentType());
+        vo.setClassName(ex.getClass().getName());
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw, true));
         vo.setException(sw.toString());
