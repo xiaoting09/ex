@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @create 2017-03-23 14:04
  **/
 public class Result implements Serializable {
+    private static final long serialVersionUID = 1L;
     public Result(Object data) {
         this.data = data;
     }

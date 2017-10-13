@@ -2,6 +2,10 @@ package com.xiao.ex.rpc;
 
 import com.xiao.ex.utils.PropertiesUtils;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -12,16 +16,16 @@ import java.util.logging.Logger;
  * @since 2017年10月07 16:33
  **/
 public class RegistryService {
-    private static Registry registry;
+    private static Remote registry;
     private static Logger log = Logger.getLogger(RegistryService.class.toString());
     public static String host;
     public static Integer port;
 
-    public static Registry getRegistry() {
+    public static Remote getRegistry() {
         if (registry == null) {
             try {
-                registry = LocateRegistry.getRegistry(getHost(), getPort());
-            } catch (RemoteException e) {
+                registry=  Naming.lookup("rmi://"+getHost()+":"+getPort()+"/exService");
+            } catch (NotBoundException | MalformedURLException | RemoteException e)  {
                 e.printStackTrace();
             }
         }

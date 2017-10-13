@@ -51,7 +51,7 @@ public class ClinetExThread implements Runnable {
      */
     private void sendServiceMsg(ExceptionVo vo) {
         try {
-            ExceptionService server = (ExceptionService) RegistryService.getRegistry().lookup("exService");
+            ExceptionService server = (ExceptionService) RegistryService.getRegistry();
             Result result = server.sendMsg(vo);
             log.info("____异常上传结果:" + result.toString());
         } catch (Exception e) {

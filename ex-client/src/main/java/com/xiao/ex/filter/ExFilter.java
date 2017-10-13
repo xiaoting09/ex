@@ -1,6 +1,7 @@
 package com.xiao.ex.filter;
 
 
+import com.google.gson.Gson;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.thread.ClinetExThread;
@@ -119,7 +120,8 @@ public class ExFilter implements Filter {
     private void packageVo(Exception ex, HttpServletRequest request, String body) {
         ExceptionVo vo = new ExceptionVo();
         vo.setContentType(request.getContentType());
-        vo.setException(ex);
+        Gson gson = new Gson();
+        vo.setException(gson.toJson(ex));
         vo.setExTime(new Date());
         vo.setIp(IpUtils.getLocalIP() + (request.getLocalPort() != 0 ? ":" + request.getLocalPort() : ""));
         String values = ValueToStr.parameters2String(request.getParameterMap());

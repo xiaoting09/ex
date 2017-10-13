@@ -31,7 +31,7 @@ public class ExClientListServiceImplTest {
         vo.setContentType("html");
         vo.setIp("134.25.36.01");
         vo.setType("post");
-        vo.setException(new Exception("ddddd"));
+       // vo.setException(new Exception("ddddd"));
         vo.setExTime(new Date());
         exClientListService.addExClinet(vo);
     }

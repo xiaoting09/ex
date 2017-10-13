@@ -1,7 +1,6 @@
 package com.xiao.ex.core;
 
 
-
 import com.xiao.ex.core.vo.req.ClientVo;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
@@ -15,7 +14,7 @@ import java.rmi.RemoteException;
  * @author 肖亭
  * @since 2017年09月11 15:51
  **/
-public interface ExceptionService extends Remote {
+public interface ExceptionService  extends Remote {
     /**
      * 发送异常信息
      *
@@ -28,5 +27,5 @@ public interface ExceptionService extends Remote {
      *
      * @param client 客户端信息
      */
-    Result addClient(ClientVo client) throws RemoteException;
+    Result addClient(ClientVo client) throws RemoteException ;
 }

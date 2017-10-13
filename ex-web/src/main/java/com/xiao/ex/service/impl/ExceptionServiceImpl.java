@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
@@ -27,20 +30,26 @@ import java.util.List;
  **/
 
 @Service(value = "exceptionService")
-public class ExceptionServiceImpl implements ExceptionService {
+public class ExceptionServiceImpl  extends UnicastRemoteObject implements ExceptionService {
     @Autowired
     private ClientService clientService;
     @Autowired
     private ClientDataService clientDataService;
+
+    public ExceptionServiceImpl() throws RemoteException {
+        super();
+    }
+
+
     @Override
-    public Result sendMsg(ExceptionVo vo) {
+    public Result sendMsg(ExceptionVo vo) throws RemoteException {
         ServiceExThread.addExceptionVo(vo);
         return new Result();
     }
 
     @Override
     @Transactional
-    public Result addClient(ClientVo client) {
+    public Result addClient(ClientVo client) throws RemoteException {
         try {
             ExClient exClient = new ExClient();
             exClient.setIsEnabled(Boolean.TRUE);

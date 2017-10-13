@@ -10,10 +10,11 @@ import java.util.Date;
  * @since 2017年09月11 15:53
  **/
 public class ExceptionVo implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 异常处理
      */
-    private Exception exception;
+    private String exception;
     /**
      * IP
      */
@@ -35,11 +36,11 @@ public class ExceptionVo implements Serializable {
      */
     private Date exTime;
 
-    public Exception getException() {
+    public String getException() {
         return exception;
     }
 
-    public void setException(Exception exception) {
+    public void setException(String exception) {
         this.exception = exception;
     }
 
@@ -82,4 +83,6 @@ public class ExceptionVo implements Serializable {
     public void setExTime(Date exTime) {
         this.exTime = exTime;
     }
+
+
 }
