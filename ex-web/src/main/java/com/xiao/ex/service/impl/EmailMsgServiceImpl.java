@@ -27,7 +27,7 @@ public class EmailMsgServiceImpl implements MsgService {
     private JavaMailSender javaMailSender;
     @Autowired
     private ConfigService configService;
-    @Value("${java.sender.mail.username}")
+    @Value("${mail.username}")
     private String username;
 
     @Override
