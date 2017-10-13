@@ -30,7 +30,7 @@ import java.util.List;
  * @author 肖亭
  * @since 2017年09月13 11:25
  **/
-@Service
+@Service(value = "exClientListService")
 public class ExClientListServiceImpl implements ExClientListService {
     @Autowired
     private ExClientListMapper exClientListMapper;

@@ -22,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,13 +114,14 @@ public class ClientDataServiceImpl implements ClientDataService {
 
     @Override
     public PageObj getExList(ExDataReqVo vo) {
-        ExClientData data = new ExClientData();
+        Example example = new Example(ExClientData.class);
+        Example.Criteria criteria = example.createCriteria().andEqualTo("isEnabled", true);
         if (vo.getClientId() != null) {
-            data.setClientId(vo.getClientId());
+            criteria.andEqualTo("clientId", vo.getClientId());
         }
-        data.setIsEnabled(true);
+        example.setOrderByClause("create_time desc");
         PageUtil.startPage(vo.getPage());
-        List<ExClientData> datalist = exClientDataMapper.select(data);
+        List<ExClientData> datalist = exClientDataMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(datalist)) {
             return PageUtil.getObj(datalist);
         }
@@ -146,7 +148,7 @@ public class ClientDataServiceImpl implements ClientDataService {
     @Override
     public ExDataRespVo getData(Long id) {
         ExClientData data = exClientDataMapper.selectByPrimaryKey(id);
-        if (data==null){
+        if (data == null) {
             return null;
         }
         return getExDataRespVo(data);

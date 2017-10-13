@@ -8,13 +8,10 @@ import org.springframework.context.ApplicationContextAware;
  * admin
  * 2016/8/4
  */
-public class SpringContextUtil implements ApplicationContextAware {
+public class SpringContextUtil  {
     private static ApplicationContext applicationContext;
 
-    /**
-     * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
-     */
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public static void setApplicationContext(ApplicationContext applicationContext) {
         SpringContextUtil.applicationContext = applicationContext; // NOSONAR
     }
 

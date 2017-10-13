@@ -1,7 +1,6 @@
 package com.xiao.ex.common.thread;
 
 import com.xiao.ex.common.SpringContextUtil;
-import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.service.ExClientListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,7 @@ import java.util.logging.Logger;
 public class ServiceExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
     public static Logger log = Logger.getLogger(ServiceExThread.class.toString());
-    @Autowired
-    private ExClientListService exClientListService;
-
-    @PostConstruct
-    public void init() {
-        ServiceExThread thread = new ServiceExThread();
-        new Thread(thread).start();
-    }
+    private static ExClientListService service;
 
     public static void addExceptionVo(ExceptionVo vo) {
         if (vo != null) {
@@ -41,7 +33,12 @@ public class ServiceExThread implements Runnable {
             if (queue != null && queue.size() > 0) {
                 for (int i = 0; i < queue.size(); i++) {
                     ExceptionVo poll = queue.poll();
-                    exClientListService.addExClinet(poll);
+                    try {
+                        // ExClientListService service = SpringContextUtil.getBean(ExClientListService.class);
+                        getService().addExClinet(poll);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
             try {
@@ -50,6 +47,13 @@ public class ServiceExThread implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private ExClientListService getService() {
+        if (service == null) {
+            service = SpringContextUtil.getBean("exClientListService");
+        }
+        return service;
     }
 
 

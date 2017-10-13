@@ -1,7 +1,6 @@
 package com.xiao.ex.filter;
 
 
-import com.google.gson.Gson;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.thread.ClinetExThread;
@@ -11,10 +10,7 @@ import com.xiao.ex.utils.ValueToStr;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -120,8 +116,9 @@ public class ExFilter implements Filter {
     private void packageVo(Exception ex, HttpServletRequest request, String body) {
         ExceptionVo vo = new ExceptionVo();
         vo.setContentType(request.getContentType());
-        Gson gson = new Gson();
-        vo.setException(gson.toJson(ex));
+        StringWriter sw = new StringWriter();
+        ex.printStackTrace(new PrintWriter(sw, true));
+        vo.setException(sw.toString());
         vo.setExTime(new Date());
         vo.setIp(IpUtils.getLocalIP() + (request.getLocalPort() != 0 ? ":" + request.getLocalPort() : ""));
         String values = ValueToStr.parameters2String(request.getParameterMap());

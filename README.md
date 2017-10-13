@@ -1,5 +1,5 @@
 # ex
-java WEB异常处理框架,异常通知简单的数据统计,客户端只需要简单配置一下filter,即可接入,
+java WEB异常处理框架,客户端只需要简单配置一下filter,即可接入,无任何依赖
 
 主要功能点
 
@@ -19,9 +19,8 @@ java WEB异常处理框架,异常通知简单的数据统计,客户端只需要�
 
 4.在web.xml文件中配置filter,也可以在config.properties中配置key名相同
 
-5.需要额外加入com.google.code.gson包
 
-6.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
+5.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
 
 Filter 配置:
 

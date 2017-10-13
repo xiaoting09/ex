@@ -1,7 +1,6 @@
 package com.xiao.ex.utils;
 
 
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +23,17 @@ public class ValueToStr {
             return null;
         }
         Map<String, String> params2 = new HashMap<>();
+        StringBuffer sbf = new StringBuffer();
+        sbf.append("{");
         params.forEach((key, values) -> {
             params2.put(key, values[0]);
+            sbf.append(key);
+            sbf.append(":");
+            sbf.append(values[0]);
+            sbf.append(",");
         });
-        return (new Gson()).toJson(params2);
+        sbf.deleteCharAt(sbf.length() - 1);
+        sbf.append("}");
+        return sbf.toString();
     }
 }
