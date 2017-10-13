@@ -123,7 +123,7 @@ public class ExFilter implements Filter {
         vo.setExTime(new Date());
         vo.setIp(IpUtils.getLocalIP() + (request.getLocalPort() != 0 ? ":" + request.getLocalPort() : ""));
         String values = ValueToStr.parameters2String(request.getParameterMap());
-        vo.setParameters("get:请求参数" + values + "\n post请求参数:" + (body != null ? body : ""));
+        vo.setParameters("\nget:请求参数" + values + "\n post请求参数:" + (body != null ? body : ""));
         vo.setType(request.getMethod());
         ClinetExThread.addExceptionVo(vo);
     }
