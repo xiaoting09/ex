@@ -1,5 +1,7 @@
 package com.xiao.ex.service.impl;
 
+import com.xiao.ex.entity.ExClient;
+import com.xiao.ex.service.ClientService;
 import com.xiao.ex.utils.DateUtils;
 import com.xiao.ex.dao.ExClientDataMapper;
 import com.xiao.ex.entity.ExClientData;
@@ -8,10 +10,15 @@ import com.xiao.ex.entity.ExList;
 import com.xiao.ex.service.ClientDataService;
 import com.xiao.ex.service.ExClientListService;
 import com.xiao.ex.service.ExListService;
+import com.xiao.ex.utils.PageObj;
+import com.xiao.ex.utils.PageUtil;
+import com.xiao.ex.web.vo.ExDataReqVo;
+import com.xiao.ex.web.vo.ExDataRespVo;
 import com.xiao.ex.web.vo.StatisticsReqVo;
 import com.xiao.ex.web.vo.StatisticsRespVo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +41,9 @@ public class ClientDataServiceImpl implements ClientDataService {
     private ExClientDataMapper exClientDataMapper;
     @Autowired
     private ExClientListService exClientListService;
+    @Autowired
+    private ClientService clientService;
+
 
     @Override
     @Transactional
@@ -95,9 +105,50 @@ public class ClientDataServiceImpl implements ClientDataService {
         rList.forEach(bean -> {
             StatisticsRespVo respVo = new StatisticsRespVo();
             respVo.setSize(bean.getSize().toString());
-            respVo.setTime(DateUtils.formatDate(bean.getExTime(),"MM-dd"));
+            respVo.setTime(DateUtils.formatDate(bean.getExTime(), "MM-dd"));
             respVos.add(respVo);
         });
         return respVos;
+    }
+
+    @Override
+    public PageObj getExList(ExDataReqVo vo) {
+        ExClientData data = new ExClientData();
+        if (vo.getClientId() != null) {
+            data.setClientId(vo.getClientId());
+        }
+        data.setIsEnabled(true);
+        PageUtil.startPage(vo.getPage());
+        List<ExClientData> datalist = exClientDataMapper.select(data);
+        if (CollectionUtils.isEmpty(datalist)) {
+            return PageUtil.getObj(datalist);
+        }
+        List<ExDataRespVo> respVos = new ArrayList<>();
+        datalist.forEach(bean -> {
+            ExDataRespVo respVo = getExDataRespVo(bean);
+            respVos.add(respVo);
+        });
+        PageObj obj = PageUtil.getObj(datalist);
+        obj.setList(respVos);
+        return obj;
+    }
+
+    private ExDataRespVo getExDataRespVo(ExClientData bean) {
+        ExDataRespVo respVo = new ExDataRespVo();
+        BeanUtils.copyProperties(bean, respVo);
+        ExClient client = clientService.getClientById(bean.getClientId());
+        String time = DateUtils.formatDate(bean.getExTime(), "yyyy-MM-dd HH:mm:ss");
+        respVo.setExTime(time);
+        respVo.setClientIp(client.getIp());
+        return respVo;
+    }
+
+    @Override
+    public ExDataRespVo getData(Long id) {
+        ExClientData data = exClientDataMapper.selectByPrimaryKey(id);
+        if (data==null){
+            return null;
+        }
+        return getExDataRespVo(data);
     }
 }

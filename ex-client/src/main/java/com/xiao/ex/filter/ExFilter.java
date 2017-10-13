@@ -2,6 +2,7 @@ package com.xiao.ex.filter;
 
 
 import com.xiao.ex.core.vo.req.ExceptionVo;
+import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.thread.ClinetExThread;
 import com.xiao.ex.utils.IpUtils;
 import com.xiao.ex.utils.PostServletRequest;
@@ -25,6 +26,14 @@ import java.util.Objects;
 public class ExFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        String host = filterConfig.getInitParameter("host");
+        String port = filterConfig.getInitParameter("port");
+        if (host != null && host.trim().length() > 0) {
+            RegistryService.host = host;
+        }
+        if (port != null && port.trim().length() > 0) {
+            RegistryService.port = Integer.valueOf(port);
+        }
         ClinetExThread thread = new ClinetExThread();
         new Thread(thread).start();
     }

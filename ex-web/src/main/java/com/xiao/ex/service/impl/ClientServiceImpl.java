@@ -95,6 +95,12 @@ public class ClientServiceImpl implements ClientService {
         obj.setList(vos);
         return obj;
     }
+
+    @Override
+    public ExClient getClientById(Integer id) {
+        return exClientMapper.selectByPrimaryKey(id);
+    }
+
     @Transactional
     public ExClient insertExClient(ExClient client) {
         if (client.getState() == null) {

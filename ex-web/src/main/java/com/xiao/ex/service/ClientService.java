@@ -53,8 +53,17 @@ public interface ClientService {
 
     /**
      * 分页查询
+     *
      * @param page 分页
      * @return
      */
     PageObj getClinetPageList(Integer page);
+
+    /**
+     * 根据客户端ID查询客户端
+     *
+     * @param id
+     * @return
+     */
+    ExClient getClientById(Integer id);
 }

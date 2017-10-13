@@ -20,6 +20,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <ul class="nav  nav-stacked" data-spy="affix" data-offset-top="125">
+                    <li><a href="/data/toData">异常列表</a></li>
                     <li><a href="/client/toClient">客户端管理</a></li>
                     <li><a href="/config/toConfig">配置信息</a></li>
                     <li><a href="/exList/toEx">异常管理</a></li>

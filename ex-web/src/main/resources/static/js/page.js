@@ -12,7 +12,13 @@ function pageAjax(myUrl) {
             } else {
                 myUrl = tempUrl + myUrl;
             }
-            window.location.href = myUrl + "?page=" + index;
+            var clientId = url('?clientId');
+            if (typeof (clientId) !== 'undefined') {
+                window.location.href = myUrl + "?page=" + index + "&clientId=" + clientId;
+            } else {
+                window.location.href = myUrl + "?page=" + index;
+            }
+
         }
     })
 }

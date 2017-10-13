@@ -13,22 +13,36 @@ import java.util.logging.Logger;
  **/
 public class RegistryService {
     private static Registry registry;
-    public static Logger log = Logger.getLogger(RegistryService.class.toString());
+    private static Logger log = Logger.getLogger(RegistryService.class.toString());
+    public static String host;
+    public static Integer port;
 
     public static Registry getRegistry() {
         if (registry == null) {
             try {
-                String port = PropertiesUtils.getProperty("rpc.port");
-                if (port == null) {
-                    log.warning("请检查填写rpc端口号");
-                    return null;
-                }
-                registry = LocateRegistry.getRegistry(PropertiesUtils.getProperty("rpc.host"), Integer.valueOf(port));
+                registry = LocateRegistry.getRegistry(getHost(), getPort());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
         return registry;
+    }
+
+    public static String getHost() {
+        if (host == null) {
+            log.warning("请检查填写rpc Host地址");
+            return PropertiesUtils.getProperty("rpc.host");
+        }
+        return host;
+    }
+
+    public static Integer getPort() {
+        if (port == null) {
+            String port = PropertiesUtils.getProperty("rpc.port");
+            log.warning("请检查填写rpc端口号");
+            return port != null && port.trim().length() > 0 ? Integer.valueOf(port) : null;
+        }
+        return port;
     }
 
 }

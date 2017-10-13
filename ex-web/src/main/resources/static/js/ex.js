@@ -44,6 +44,8 @@ $(document).ready(function () {
             window.location.href = window.location.href;
         });
     });
+    var myUrl = "/exList/toEx";
+    pageAjax(myUrl);
 
 });
 function showData($this) {

@@ -19,6 +19,8 @@ $(document).ready(function () {
             window.location.href = window.location.href;
         });
     });
+    var myUrl = "/exList/toExEmail";
+    pageAjax(myUrl);
 });
 /**
  * 查询机器列表
