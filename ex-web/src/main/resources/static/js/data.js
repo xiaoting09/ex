@@ -10,7 +10,13 @@ $(document).ready(function () {
         myUrl = tempUrl + myUrl;
     }
     $("select").change(function () {
-        window.location.href = myUrl + "?clientId=" + $("#clinets").val();
+        var clientId = $("#clinets").val();
+        if (typeof (clientId) !== 'undefined' && clientId.trim().length > 0) {
+            window.location.href = myUrl + "?clientId=" + $("#clinets").val();
+        } else {
+            window.location.href = myUrl;
+        }
+
     });
 });
 /**
@@ -24,7 +30,7 @@ function getClientList() {
                 text = element.remarks;
             }
             var clientId = url('?clientId');
-            if (typeof (clientId) !== 'undefined') {
+            if (typeof (clientId) !== 'undefined' && clientId.trim().length > 0 && element.id=== parseInt(clientId)) {
                 $("#clinets").append("<option value='" + element.id + "' selected = 'selected'>" + text + "</option>");
             } else {
                 $("#clinets").append("<option value='" + element.id + "'>" + text + "</option>");

@@ -17,7 +17,7 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
 
 3.将ex-client和ex-core模块打成jar包，放在需要调用的项目中
 
-4.在web.xml文件中配置filter,也可以在config.properties中配置key名相同
+4.在web.xml文件中配置filter,初始化参数也可以在config.properties中配置key名相同
 
 
 5.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
