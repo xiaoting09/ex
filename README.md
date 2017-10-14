@@ -27,6 +27,9 @@ Filter 配置:
     包名:com.xiao.ex.filter.ExFilter,
     init-param中配置 host(ex-web模块的服务器ip地址)，port(注册端口),time(间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
 
+如有问题请联系我QQ:1360379096
+
+
 如果你喜欢本项目，请点击右上角的 Star，这样就可以将本项目放入您的收藏。
 
 如果你非常喜欢，请点击右上角的 Fork，这样就可以直接将本项目直接复制到您的名下。
