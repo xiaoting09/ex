@@ -100,8 +100,8 @@ public class ClientServiceImpl implements ClientService {
     public ExClient getClientById(Integer id) {
         return exClientMapper.selectByPrimaryKey(id);
     }
-
-    @Transactional
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public ExClient insertExClient(ExClient client) {
         if (client.getState() == null) {
             client.setState(Boolean.TRUE);

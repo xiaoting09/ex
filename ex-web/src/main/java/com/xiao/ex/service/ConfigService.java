@@ -2,7 +2,6 @@ package com.xiao.ex.service;
 
 import com.xiao.ex.entity.ExConfig;
 import com.xiao.ex.utils.PageObj;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

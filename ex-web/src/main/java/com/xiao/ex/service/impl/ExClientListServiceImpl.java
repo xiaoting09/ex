@@ -49,7 +49,7 @@ public class ExClientListServiceImpl implements ExClientListService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addExClinet(ExceptionVo vo) {
         try {
             ExClient client = clientService.findClientByIp(vo.getIp());
@@ -115,9 +115,14 @@ public class ExClientListServiceImpl implements ExClientListService {
         exClientListMapper.updateByPrimaryKeySelective(exClien);
     }
 
-    //TODO:如需扩展手机发送则在此扩展
+    /**
+     * TODO:如需扩展手机发送则在此扩展
+     *
+     * @param client
+     * @param msg
+     */
     private void sendMsg(ExClient client, String msg) {
-        if (StringUtils.isNotBlank(client.getEmail())) {
+        if (StringUtils.isNotBlank(client.getEmail().trim())) {
             msgService.sendMsg(client.getEmail(), msg);
         }
     }

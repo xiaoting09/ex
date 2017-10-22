@@ -47,7 +47,7 @@ public class ClientDataServiceImpl implements ClientDataService {
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addClientData(ExClientData data) {
         ExList ex = exListService.findExOrAdd(data.getExClass());
         ExClientList clientList = new ExClientList();

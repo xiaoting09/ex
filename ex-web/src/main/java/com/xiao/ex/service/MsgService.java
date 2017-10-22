@@ -1,6 +1,5 @@
 package com.xiao.ex.service;
 
-import javax.mail.MessagingException;
 
 /**
  * 消息发送通知服务

@@ -48,7 +48,7 @@ public class ExceptionServiceImpl  extends UnicastRemoteObject implements Except
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Result addClient(ClientVo client) throws RemoteException {
         try {
             ExClient exClient = new ExClient();

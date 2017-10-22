@@ -54,13 +54,13 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addConfig(ExConfig config) {
         exConfigMapper.insertSelective(config);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delConfig(Integer id) {
         ExConfig config = new ExConfig();
         config.setIsEnabled(Boolean.FALSE);

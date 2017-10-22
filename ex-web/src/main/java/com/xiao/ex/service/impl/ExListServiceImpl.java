@@ -87,13 +87,13 @@ public class ExListServiceImpl implements ExListService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateEx(ExList exList) {
         exListMapper.updateByPrimaryKeySelective(exList);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addEx(ExList exList) {
         exListMapper.insertSelective(exList);
     }
