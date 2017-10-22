@@ -34,7 +34,6 @@ public class ServiceExThread implements Runnable {
                 for (int i = 0; i < queue.size(); i++) {
                     ExceptionVo poll = queue.poll();
                     try {
-                        // ExClientListService service = SpringContextUtil.getBean(ExClientListService.class);
                         getService().addExClinet(poll);
                     } catch (Exception ex) {
                         ex.printStackTrace();
