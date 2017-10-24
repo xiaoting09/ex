@@ -46,7 +46,7 @@ create table ex_client_data
    ex_time              timestamp comment '异常发生时间',
    msg                  text comment '错误信息',
    type                 varchar(10) comment '请求方式GET还是POST',
-   content_type         varchar(25) comment '请求格式',
+   content_type         varchar(50) comment '请求格式',
    create_time          datetime default CURRENT_TIMESTAMP comment '创建时间',
    update_time          datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '修改时间',
    is_enabled           tinyint(1) default 1 comment '是否可用',

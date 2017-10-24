@@ -33,7 +33,16 @@ public interface ConfigService {
 
     /**
      * 根据name获取所有的值
+     *
      * @param name
      */
     List<ExConfig> getConf(String name);
+
+    /**
+     * 判断MySql是否大于5.7
+     *
+     * @return
+     */
+    Boolean isVersion();
+
 }

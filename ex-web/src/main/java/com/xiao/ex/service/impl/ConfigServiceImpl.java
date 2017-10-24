@@ -8,6 +8,7 @@ import com.xiao.ex.utils.PageObj;
 import com.xiao.ex.utils.PageUtil;
 import com.xiao.ex.web.vo.ConfigRespVo;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author 肖亭
  * @since 2017年10月11 11:26
  **/
-@Service
+@Service(value = "configService")
 public class ConfigServiceImpl implements ConfigService {
     @Autowired
     private ExConfigMapper exConfigMapper;
@@ -70,9 +71,25 @@ public class ConfigServiceImpl implements ConfigService {
 
     @Override
     public List<ExConfig> getConf(String name) {
-        ExConfig config= new ExConfig();
+        ExConfig config = new ExConfig();
         config.setIsEnabled(Boolean.TRUE);
         config.setName(name);
         return exConfigMapper.select(config);
+    }
+
+    @Override
+    public Boolean isVersion() {
+        String version = exConfigMapper.findMysqlVersion();
+        if (StringUtils.isEmpty(version)) {
+            return Boolean.FALSE;
+        }
+        String[] split = version.split("\\.");
+        if (Integer.valueOf(split[0]) > 5) {
+            return Boolean.TRUE;
+        }
+        if (Integer.valueOf(split[1]) >= 7) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }

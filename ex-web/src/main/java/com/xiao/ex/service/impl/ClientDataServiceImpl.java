@@ -2,6 +2,7 @@ package com.xiao.ex.service.impl;
 
 import com.xiao.ex.entity.ExClient;
 import com.xiao.ex.service.ClientService;
+import com.xiao.ex.utils.CacheLoaderUtil;
 import com.xiao.ex.utils.DateUtils;
 import com.xiao.ex.dao.ExClientDataMapper;
 import com.xiao.ex.entity.ExClientData;
@@ -67,7 +68,8 @@ public class ClientDataServiceImpl implements ClientDataService {
     @Override
     public List<StatisticsRespVo> getDataList(StatisticsReqVo vo) {
         ExClientData data = getExClientData(vo);
-        List<ExClientData> rList = exClientDataMapper.getDataList(data);
+        Boolean v7 = CacheLoaderUtil.getMysqlV7();
+        List<ExClientData> rList = v7 ? exClientDataMapper.getDataV7List(data) : exClientDataMapper.getDataList(data);
         if (CollectionUtils.isEmpty(rList)) {
             return null;
         }
@@ -98,7 +100,8 @@ public class ClientDataServiceImpl implements ClientDataService {
     @Override
     public List<StatisticsRespVo> getLineData(StatisticsReqVo reqVo) {
         ExClientData data = getExClientData(reqVo);
-        List<ExClientData> rList = exClientDataMapper.getLineData(data);
+        Boolean v7 = CacheLoaderUtil.getMysqlV7();
+        List<ExClientData> rList = v7 ? exClientDataMapper.getDataV7List(data) : exClientDataMapper.getLineData(data);
         if (CollectionUtils.isEmpty(rList)) {
             return null;
         }

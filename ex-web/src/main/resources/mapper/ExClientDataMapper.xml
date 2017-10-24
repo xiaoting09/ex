@@ -30,8 +30,22 @@
         </if>
         group by ex_class
     </select>
+
+    <select id="getDataV7List" resultMap="BaseResultMap" parameterType="com.xiao.ex.entity.ExClientData">
+        select any_value(ex_class ) AS ex_class ,any_value(COUNT(*)) AS size from
+        ex_client_data
+        where date_sub(curdate(), interval #{day} day) &lt;= date(ex_time)
+        <if test="clientId !=null ">
+            and client_id = #{clientId}
+        </if>
+        <if test="exClass !=null ">
+            and ex_class = #{exClass}
+        </if>
+        group by ex_class
+    </select>
+
     <select id="getLineData" resultMap="BaseResultMap" parameterType="com.xiao.ex.entity.ExClientData">
-        select ex_time  ,count(*) AS size from
+        select ex_time ,count(*) AS size from
         ex_client_data
         where date_sub(curdate(), interval #{day} day) &lt;= date(ex_time)
         <if test="clientId !=null ">
@@ -42,5 +56,16 @@
         </if>
         group by DATE_FORMAT(ex_time,'%m-%d-%Y')
     </select>
-
+    <select id="getLineV7Data" resultMap="BaseResultMap" parameterType="com.xiao.ex.entity.ExClientData">
+        select any_value(ex_class ) AS ex_class ,any_value(COUNT(*)) from
+        ex_client_data
+        where date_sub(curdate(), interval #{day} day) &lt;= date(ex_time)
+        <if test="clientId !=null ">
+            and client_id = #{clientId}
+        </if>
+        <if test="exClass !=null ">
+            and ex_class = #{exClass}
+        </if>
+        group by DATE_FORMAT(ex_time,'%m-%d-%Y')
+    </select>
 </mapper>

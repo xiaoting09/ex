@@ -6,4 +6,6 @@ import com.xiao.ex.entity.ExConfig;
 
 public interface ExConfigMapper extends MyMapper<ExConfig> {
 
+    String findMysqlVersion();
+
 }
