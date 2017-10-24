@@ -122,7 +122,7 @@ public class ExClientListServiceImpl implements ExClientListService {
      * @param msg
      */
     private void sendMsg(ExClient client, String msg) {
-        if (StringUtils.isNotBlank(client.getEmail().trim())) {
+        if (StringUtils.isNotBlank(client.getEmail())) {
             msgService.sendMsg(client.getEmail(), msg);
         }
     }
