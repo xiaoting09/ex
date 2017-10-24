@@ -38,7 +38,6 @@ public class ExListClinetController {
     @RequestMapping("/addClientList")
     @ResponseBody
     public Result addClientList(ExListReqVo vo) {
-        // PageObj pageObj =exClientListService.getPageList(page);
         ExList exList = new ExList();
         exList.setName(vo.getExName());
         exList.setIsEnabled(true);

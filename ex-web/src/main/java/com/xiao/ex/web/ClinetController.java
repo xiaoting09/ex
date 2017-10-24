@@ -68,12 +68,18 @@ public class ClinetController {
         }
         if (StringUtils.isNotBlank(reqVo.getEmail())) {
             client.setEmail(reqVo.getEmail());
+        } else {
+            client.setEmail("");
         }
         if (StringUtils.isNotBlank(reqVo.getPhone())) {
             client.setPhone(reqVo.getPhone());
+        }else {
+            client.setPhone("");
         }
         if (StringUtils.isNotBlank(reqVo.getRemarks())) {
             client.setRemarks(reqVo.getRemarks());
+        }else {
+            client.setRemarks("");
         }
         clientService.updateExClient(client);
         return new Result();
