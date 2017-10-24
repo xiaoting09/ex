@@ -78,8 +78,20 @@ public class ExMyFilter {
 }
 
 ```
+## 如果有兴趣的朋友可以直接运行libs下面的jar包步骤：
+1.执行Sql语句并数据库名为ex
+
+2.在命令行输入java -jar ex-web-1.0.0-SNAPSHOT.jar 数据库IP 数据库用户名 密码  
+
+
+3.将ex-client.jar 和 ex-core.jar加入到要配置的项目中,并按照上面的步骤配置Filter(如果不想自己运行web模块,可以配置到Demo里面IP地址)
+
+
+
+
 如有问题请联系我QQ:1360379096
 
+谢谢 @如果没有你 给我提供的意见
 
 如果你喜欢本项目，请点击右上角的 Star，这样就可以将本项目放入您的收藏。
 
