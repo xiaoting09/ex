@@ -26,12 +26,58 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
 ## Filter 配置:
 
     包名:com.xiao.ex.filter.ExFilter,
-    init-param中配置:
+     init-param中配置:
      host(ex-web模块的服务器ip地址)，
      port(注册端口),
      time(单位是毫秒,异常间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
 
+## 普通的Web项目接入Demo:
 
+```
+    <filter>
+        <filter-name>exFilter</filter-name>
+        <filter-class>com.xiao.ex.filter.ExFilter</filter-class>
+        <init-param>
+            <param-name>host</param-name>
+            <param-value>119.23.239.186</param-value>
+        </init-param>
+        <init-param>
+            <param-name>port</param-name>
+            <param-value>8886</param-value>
+        </init-param>
+        <init-param>
+            <param-name>time</param-name>
+            <param-value>1000</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>exFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+```
+## SpringBoot接入Demo:
+```
+@Configuration
+public class ExMyFilter {
+    /**
+     * 配置过滤器
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new ExFilter());
+        registration.addUrlPatterns("/*");
+        registration.addInitParameter("host", "119.23.239.186");
+        registration.addInitParameter("port", "8886");
+        registration.addInitParameter("time", "1000");
+        return registration;
+    }
+
+}
+
+```
 如有问题请联系我QQ:1360379096
 
 
