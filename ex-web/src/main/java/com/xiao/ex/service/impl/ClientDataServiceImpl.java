@@ -101,7 +101,7 @@ public class ClientDataServiceImpl implements ClientDataService {
     public List<StatisticsRespVo> getLineData(StatisticsReqVo reqVo) {
         ExClientData data = getExClientData(reqVo);
         Boolean v7 = CacheLoaderUtil.getMysqlV7();
-        List<ExClientData> rList = v7 ? exClientDataMapper.getDataV7List(data) : exClientDataMapper.getLineData(data);
+        List<ExClientData> rList = v7 ? exClientDataMapper.getLineV7Data(data) : exClientDataMapper.getLineData(data);
         if (CollectionUtils.isEmpty(rList)) {
             return null;
         }
