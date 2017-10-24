@@ -1,15 +1,16 @@
-# ex
+## ex
 java WEB异常处理框架,客户端只需要简单配置一下filter,即可接入,无任何依赖
 
 主要功能点
 
 1、异常发生时异步发送报警邮箱
+
 2、简单的异常发生数据统计
 
 
-测试地址：http://ex.xiaoting.link/
+##测试地址：http://ex.xiaoting.link/
 
-步骤
+## 接入步骤
 
 1.修改application.properties中的数据库配置 rmi.registry.port(注册端口),rmi.service.port(通讯端口)号配置
 
@@ -22,10 +23,14 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
 
 5.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
 
-Filter 配置:
+## Filter 配置:
 
     包名:com.xiao.ex.filter.ExFilter,
-    init-param中配置 host(ex-web模块的服务器ip地址)，port(注册端口),time(间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
+    init-param中配置:
+     host(ex-web模块的服务器ip地址)，
+     port(注册端口),
+     time(单位是毫秒,异常间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
+
 
 如有问题请联系我QQ:1360379096
 
