@@ -1,5 +1,6 @@
 package com.xiao.ex.common;
 
+import com.xiao.ex.utils.DbUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -18,12 +19,12 @@ import javax.sql.DataSource;
  * 说明:   Druid配置
  *
  * @author xiaoting
- * Created by 2017-03-23 14:40
+ *         Created by 2017-03-23 14:40
  **/
 @Configuration
 // 扫描 Mapper 接口并容器管理
 @MapperScan(basePackages = DruidDataSourceConfiguration.PACKAGE, sqlSessionFactoryRef = "masterSqlSessionFactory")
-public class DruidDataSourceConfiguration extends DataSourceCom{
+public class DruidDataSourceConfiguration extends DataSourceCom {
 
     private Logger logger = LoggerFactory.getLogger(DruidDataSourceConfiguration.class);
     static final String PACKAGE = "com.xiao.ex.dao";
@@ -43,9 +44,20 @@ public class DruidDataSourceConfiguration extends DataSourceCom{
 
     @Bean    //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
-    public DataSource dataSource(){
-        return getDataSource(dbUrl,username,password,driverClassName);
+    public DataSource dataSource() {
+        if (dbUrl.contains("{ip}")) {
+            dbUrl= dbUrl.replace("{ip}", DbUtil.dbUrl);
+        }
+        if (username.contains("{user}")) {
+            username= username.replace("{user}", DbUtil.userName);
+        }
+        if (password.contains("{pwd}")) {
+            password= password.replace("{pwd}", DbUtil.pwd);
+        }
+        System.out.println("------" + password + username + dbUrl);
+        return getDataSource(dbUrl, username, password, driverClassName);
     }
+
     @Bean
     @Primary
     public DataSourceTransactionManager masterTransactionManager() {
