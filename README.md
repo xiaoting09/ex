@@ -10,18 +10,30 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
 
 ## 测试地址：http://ex.xiaoting.link/
 
-## 接入步骤
+## 如果有兴趣的朋友可以直接运行libs下面的jar包步骤：
 
-1.修改application.properties中的数据库配置 rmi.registry.port(注册端口),rmi.service.port(通讯端口)号配置
+1.执行Sql语句并数据库名为ex
 
-2.因为使用spring boot,所以可以将ex-web模块打成jar包单独执行,也可以打成war包放在容器中
+2.在命令行输入java -jar ex-web-1.0.0-SNAPSHOT.jar 数据库IP 数据库用户名 密码  
 
-3.将ex-client和ex-core模块打成jar包，放在需要调用的项目中
+
+3.将ex-spring-clinet.jar或者ex-web-client 和 ex-core.jar加入到要配置的项目中,并按照上面的步骤配置Filter(如果不想自己运行web模块,可以配置到Demo里面IP地址)
+
+
+
+
+
+## 普通的Web项目接入步骤
+
+1.修改ex-web模块中的application.properties中的数据库配置 rmi.registry.port(注册端口),rmi.service.port(通讯端口)号配置
+
+2.发送的邮件服务器配置可以在ex-web模块修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host, mail.port, mail.username, mail.password
+
+3.将ex-web模块打成jar包单独执行,也可以打成war包放在容器中
 
 4.在web.xml文件中配置filter,初始化参数也可以在config.properties中配置key名相同
 
 
-5.发送的邮件服务器配置可以在修改application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host,mail.port,mail.username,mail.password
 
 ## Filter 配置:
 
@@ -56,38 +68,45 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
     </filter-mapping>
 
 ```
+## SpringBoot接入步骤
+
+1.修改ex-web模块中的application.properties中的数据库配置 rmi.registry.port(注册端口),rmi.service.port(通讯端口)号配置
+
+2.发送的邮件服务器配置可以在修改ex-web模块application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host, mail.port, mail.username, mail.password
+
+3.将ex-web模块打成jar包单独执行,也可以打成war包放在容器中
+
+4.引入ex-spring-client.jar包，并声明MyExceptionHandler bean,在application.properties中写入rmi.port(web模块的注册端口),rmi.host(web模块的IP地址),rmi.time(上报时间单位毫秒)
+
+
+
 ## SpringBoot接入Demo:
 ```
-@Configuration
-public class ExMyFilter {
-    /**
-     * 配置过滤器
-     * @return
-     */
     @Bean
-    public FilterRegistrationBean someFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new ExFilter());
-        registration.addUrlPatterns("/*");
-        registration.addInitParameter("host", "119.23.239.186");
-        registration.addInitParameter("port", "8886");
-        registration.addInitParameter("time", "1000");
-        return registration;
+    public MyExceptionHandler masterTransactionManager() {
+        return new MyExceptionHandler();
     }
 
-}
+```
+
+
+## Spring 接入步骤
+
+1.修改ex-web模块中的application.properties中的数据库配置 rmi.registry.port(注册端口),rmi.service.port(通讯端口)号配置
+
+2.发送的邮件服务器配置可以在修改ex-web模块application.properties中修改,也可以在平台上的配置消息模块中修改对应的key名分别是mail.host, mail.port, mail.username, mail.password
+
+3.将ex-web模块打成jar包单独执行,也可以打成war包放在容器中
+
+4.引入ex-spring-client.jar包，并声明MyExceptionHandler bean,在application.properties中写入rmi.port(web模块的注册端口),rmi.host(web模块的IP地址),rmi.time(上报时间单位毫秒)
+
+
+
+## Spring  接入Demo:
+```
+      <bean class="com.xiao.ex.handler.MyExceptionHandler"/>
 
 ```
-## 如果有兴趣的朋友可以直接运行libs下面的jar包步骤：
-1.执行Sql语句并数据库名为ex
-
-2.在命令行输入java -jar ex-web-1.0.0-SNAPSHOT.jar 数据库IP 数据库用户名 密码  
-
-
-3.将ex-client.jar 和 ex-core.jar加入到要配置的项目中,并按照上面的步骤配置Filter(如果不想自己运行web模块,可以配置到Demo里面IP地址)
-
-
-
 
 如有问题请联系我QQ:1360379096
 

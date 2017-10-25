@@ -61,7 +61,7 @@ public class ClinetController {
         ExClient client = new ExClient();
         client.setId(reqVo.getId());
         if (reqVo.getState() != null) {
-            client.setState(Objects.equals(reqVo.getState(),1));
+            client.setState(Objects.equals(reqVo.getState(), 1));
         }
         if (reqVo.getIsEnabled() != null) {
             client.setIsEnabled(reqVo.getIsEnabled());
@@ -73,12 +73,15 @@ public class ClinetController {
         }
         if (StringUtils.isNotBlank(reqVo.getPhone())) {
             client.setPhone(reqVo.getPhone());
-        }else {
+        } else {
             client.setPhone("");
+        }
+        if (StringUtils.isNotBlank(reqVo.getIp())) {
+            client.setIp(reqVo.getIp());
         }
         if (StringUtils.isNotBlank(reqVo.getRemarks())) {
             client.setRemarks(reqVo.getRemarks());
-        }else {
+        } else {
             client.setRemarks("");
         }
         clientService.updateExClient(client);
@@ -88,11 +91,11 @@ public class ClinetController {
     @RequestMapping("/addClient")
     @ResponseBody
     public Result addClient(ClinetReqVo reqVo) {
-        if (reqVo.getId()!=null){
+        if (reqVo.getId() != null) {
             return updataClient(reqVo);
         }
         ExClient client = new ExClient();
-        client.setState(Objects.equals(reqVo.getState(),1));
+        client.setState(Objects.equals(reqVo.getState(), 1));
         client.setIp(reqVo.getIp());
         client.setRemarks(reqVo.getRemarks());
         client.setType(Boolean.FALSE);

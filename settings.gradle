@@ -1,5 +1,6 @@
 rootProject.name = 'ex'
 include 'ex-core'
-include 'ex-client'
+include 'ex-web-client'
 include 'ex-web'
+include 'ex-spring-client'
 
