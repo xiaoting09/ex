@@ -33,10 +33,10 @@ public class ExFilter extends ExcetionToThread implements Filter {
         if (port != null && port.trim().length() > 0) {
             RegistryService.port = Integer.valueOf(port);
         }
-        ClinetExThread thread = ClinetExThread.getInstance();
-        if (time != null && time.length() > 0) {
-            thread.setTime(Long.valueOf(time));
+        if (time == null || time.length() == 0) {
+            time = "60000";
         }
+        ClinetExThread.getInstance(Long.valueOf(time));
     }
 
     @Override

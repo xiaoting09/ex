@@ -7,6 +7,8 @@ import com.xiao.ex.rpc.RegistryService;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
@@ -17,19 +19,16 @@ public class ClinetExThread implements Runnable {
     public static Logger log = Logger.getLogger(ClinetExThread.class.toString());
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
     private static ClinetExThread instance;
+    private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
     private ClinetExThread() {
     }
 
-    /**
-     * 默认十分钟上报一次
-     */
-    private Long time;
 
-    public static synchronized ClinetExThread getInstance() {
+    public static synchronized ClinetExThread getInstance(Long time) {
         if (instance == null) {
             instance = new ClinetExThread();
-            new Thread(instance).start();
+            executor.scheduleAtFixedRate(instance, time, time, TimeUnit.MILLISECONDS);
         }
         return instance;
     }
@@ -42,17 +41,10 @@ public class ClinetExThread implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            if (queue != null && queue.size() > 0) {
-                for (int i = 0; i < queue.size(); i++) {
-                    ExceptionVo poll = queue.poll();
-                    sendServiceMsg(poll);
-                }
-            }
-            try {
-                Thread.sleep(getTime());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (queue != null && queue.size() > 0) {
+            for (int i = 0; i < queue.size(); i++) {
+                ExceptionVo poll = queue.poll();
+                sendServiceMsg(poll);
             }
         }
     }
@@ -72,11 +64,4 @@ public class ClinetExThread implements Runnable {
         }
     }
 
-    public Long getTime() {
-        return time == null ? 600000L : this.time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
 }

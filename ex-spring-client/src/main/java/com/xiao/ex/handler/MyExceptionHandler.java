@@ -30,7 +30,7 @@ public class MyExceptionHandler extends ExcetionToThread implements HandlerExcep
     private void init() {
         RegistryService.setHost(host);
         RegistryService.setPort(port);
-        ClinetExThread.getInstance().setTime(time);
+        ClinetExThread.getInstance(time);
     }
 
     @Override

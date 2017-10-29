@@ -50,6 +50,6 @@ public class ExcetionToThread {
         sbf.append("");
         vo.setParameters(sbf.toString());
         vo.setType(request.getMethod());
-        ClinetExThread.getInstance().addExceptionVo(vo);
+        ClinetExThread.getInstance(null).addExceptionVo(vo);
     }
 }
