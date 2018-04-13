@@ -60,8 +60,9 @@ maven:
 
     包名:com.xiao.ex.filter.ExFilter,
      init-param中配置:
-     host(ex-web模块的服务器ip地址)，
-     port(注册端口),
+     rmi.host(ex-web模块的服务器ip地址)，
+     rmi.port(注册端口),
+     http.port 服务器地址 (与rmi.host,rmi.port二选一)
      time(单位是毫秒,异常间隔上传时间，其中host和port是必传值,time默认十分钟上报一次异常,
 
 ## 普通的Web项目接入Demo:
@@ -71,12 +72,16 @@ maven:
         <filter-name>exFilter</filter-name>
         <filter-class>com.xiao.ex.filter.ExFilter</filter-class>
         <init-param>
-            <param-name>host</param-name>
+            <param-name>rmi.host</param-name>
             <param-value>119.23.239.186</param-value>
         </init-param>
         <init-param>
-            <param-name>port</param-name>
+            <param-name>rmi.port</param-name>
             <param-value>8886</param-value>
+        </init-param>
+         <init-param>
+            <param-name>http.port</param-name>
+            <param-value>http://服务器地址</param-value>
         </init-param>
         <init-param>
             <param-name>time</param-name>
@@ -125,7 +130,12 @@ maven:
 
 ## Spring  接入Demo:
 ```
-      <bean class="com.xiao.ex.handler.MyExceptionHandler"/>
+   <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.xiao.ex.handler.MyExceptionHandler"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 ```
 
