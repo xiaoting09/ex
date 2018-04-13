@@ -3,21 +3,42 @@ java WEB异常处理框架,客户端只需要简单配置一下filter,即可接�
 
 主要功能点
 
-1、异常发生时异步发送报警邮箱
+1、异常发生时异步发送报警邮箱,钉钉
 
 2、简单的异常发生数据统计
 
 
 ## 测试地址：http://ex.xiaoting.link/
 
-## 如果有兴趣的朋友可以直接运行libs下面的jar包步骤：
+## 如果有兴趣的朋友可以按照以下步骤进行打包(需要安装gradle环境)：
 
-1.执行Sql语句并数据库名为ex
+1.进入ex-spring-client、ex-web-client、ex-core目录，执行
+```
+   gradle clean install
+```
+  进入 ex-web项目下执行
+```
+    gradle clean build -x test
+```
 
 2.在命令行输入java -jar ex-web-1.0.0-SNAPSHOT.jar 数据库IP 数据库用户名 密码  
 
 
-3.将ex-spring-clinet.jar或者ex-web-client 和 ex-core.jar加入到要配置的项目中,并按照上面的步骤配置Filter(如果不想自己运行web模块,可以配置到Demo里面IP地址)
+3.
+```
+gradle:  
+compile group: 'com.xiao.ex', name: 'ex-spring-client', version: '1.0.0-SNAPSHOT'
+
+maven:
+<dependency>
+  <groupId>com.xiao.ex</groupId>
+  <artifactId>ex-spring-client</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+
+并按照下面的步骤配置Filter(如果不想自己运行web模块,可以配置到Demo里面IP地址)
 
 
 
