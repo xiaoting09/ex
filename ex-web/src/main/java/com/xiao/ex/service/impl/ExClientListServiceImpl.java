@@ -1,6 +1,7 @@
 package com.xiao.ex.service.impl;
 
 
+import com.xiao.ex.common.CreteMsgFactory;
 import com.xiao.ex.common.SpringContextUtil;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.dao.ExClientListMapper;
@@ -25,6 +26,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 肖亭
@@ -122,8 +124,12 @@ public class ExClientListServiceImpl implements ExClientListService {
      * @param msg
      */
     private void sendMsg(ExClient client, ExClientData data) {
-        if (StringUtils.isNotBlank(client.getEmail())) {
-            msgService.sendMsg(client, data);
+        Set<MsgService> msgList = CreteMsgFactory.creteMsgBean();
+        if (CollectionUtils.isEmpty(msgList)) {
+            return;
+        }
+        for (MsgService service : msgList) {
+            service.sendMsg(client, data);
         }
     }
 
