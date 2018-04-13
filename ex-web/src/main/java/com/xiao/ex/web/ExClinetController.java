@@ -3,10 +3,7 @@ package com.xiao.ex.web;
 import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.rmi.RemoteException;
 
@@ -23,6 +20,7 @@ public class ExClinetController {
     private ExceptionService exceptionService;
 
     @PostMapping(value = "refreshExList")
+    @ResponseBody
     public String refreshExList(@RequestBody ExceptionVo vo) {
         try {
             exceptionService.sendMsg(vo);
