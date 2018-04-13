@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
  **/
 public class MyExceptionHandlerTest {
     @Bean
-    public MyExceptionHandler masterTransactionManager() {
-        return new MyExceptionHandler();
+    public AExceptionHandler masterTransactionManager() {
+        return new AExceptionHandler();
     }
 }

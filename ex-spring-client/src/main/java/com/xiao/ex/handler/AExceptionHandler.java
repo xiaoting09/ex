@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 肖亭
  * @since 2017年10月25 13:24
  **/
-public class MyExceptionHandler extends ExcetionToThread implements HandlerExceptionResolver, Ordered {
+public class AExceptionHandler extends ExcetionToThread implements HandlerExceptionResolver, Ordered {
     @Value("${rmi.host:host}")
     private String host;
     @Value("${http.host:httpHost}")
