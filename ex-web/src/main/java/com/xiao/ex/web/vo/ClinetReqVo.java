@@ -34,6 +34,10 @@ public class ClinetReqVo {
      * 邮件通知
      */
     private String email;
+    /**
+     * 钉钉token
+     */
+    private String dingdingToken;
 
     /**
      * 删除
@@ -94,5 +98,13 @@ public class ClinetReqVo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDingdingToken() {
+        return dingdingToken;
+    }
+
+    public void setDingdingToken(String dingdingToken) {
+        this.dingdingToken = dingdingToken;
     }
 }

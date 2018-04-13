@@ -37,6 +37,10 @@ public class ClinetRespVo {
      */
     private String phone;
     /**
+     * 钉钉token
+     */
+    private String dingdingToken;
+    /**
      * 邮件通知
      */
     private String email;
@@ -109,5 +113,13 @@ public class ClinetRespVo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDingdingToken() {
+        return dingdingToken;
+    }
+
+    public void setDingdingToken(String dingdingToken) {
+        this.dingdingToken = dingdingToken;
     }
 }

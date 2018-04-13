@@ -12,6 +12,7 @@
                 <td>状态</td>
                 <td>通知邮箱</td>
                 <td>通知手机号</td>
+                <td>通知钉钉token</td>
                 <td>修改时间</td>
                 <td>操作</td>
             </tr>
@@ -36,6 +37,7 @@
                     </td>
                     <td>${(item.email)!''}</td>
                     <td>${(item.phone)!''}</td>
+                    <td>${(item.dingdingToken)!''}</td>
                     <td>${item.utime}</td>
                     <td>
                         <div class="btn-group" role="group">
@@ -75,6 +77,10 @@
                             <div class="form-group">
                                 <label for="name">手机号</label>
                                 <input type="text" class="form-control" id="phone" placeholder="异常通知手机号以逗号,分割多个">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">钉钉token</label>
+                                <input type="text" class="form-control" id="dingdingToken" placeholder="通知钉钉token连接">
                             </div>
                             <div class="form-group">
                                 <label for="name">邮箱</label>

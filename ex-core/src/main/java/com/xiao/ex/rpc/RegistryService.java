@@ -1,6 +1,7 @@
 package com.xiao.ex.rpc;
 
 import com.xiao.ex.utils.PropertiesUtils;
+import com.xiao.ex.utils.RefreshServerFactory;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -31,6 +32,7 @@ public class RegistryService {
     }
 
     public static String getHost() {
+        host = RefreshServerFactory.rpcHost;
         if (host == null) {
             host = PropertiesUtils.getProperty("rmi.host");
         }
@@ -41,6 +43,9 @@ public class RegistryService {
     }
 
     public static Integer getPort() {
+        if (RefreshServerFactory.rpcPort != null && RefreshServerFactory.rpcPort.trim().length() > 0) {
+            port = Integer.valueOf(RefreshServerFactory.rpcPort);
+        }
         if (port == null) {
             String ports = PropertiesUtils.getProperty("rmi.port");
             port = ports != null && ports.trim().length() > 0 ? Integer.valueOf(ports) : null;
@@ -49,17 +54,5 @@ public class RegistryService {
             log.warning("请检查填写rpc端口号");
         }
         return port;
-    }
-
-    public static void setHost(String host) {
-        if (host != null && host.trim().length() > 0 && !"rmi.host".equals(host)) {
-            RegistryService.host = host;
-        }
-    }
-
-    public static void setPort(Integer port) {
-        if (port >= 0) {
-            RegistryService.port = port;
-        }
     }
 }

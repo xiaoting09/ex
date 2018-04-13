@@ -63,7 +63,7 @@ public class ExClientListServiceImpl implements ExClientListService {
             data.setExTime(vo.getExTime());
             clientDataService.addClientData(data);
             if (data.getId() != null) {
-                sendMsg(client, data.getMsg());
+                sendMsg(client, data);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,9 +121,9 @@ public class ExClientListServiceImpl implements ExClientListService {
      * @param client
      * @param msg
      */
-    private void sendMsg(ExClient client, String msg) {
+    private void sendMsg(ExClient client, ExClientData data) {
         if (StringUtils.isNotBlank(client.getEmail())) {
-            msgService.sendMsg(client.getEmail(), msg);
+            msgService.sendMsg(client, data);
         }
     }
 

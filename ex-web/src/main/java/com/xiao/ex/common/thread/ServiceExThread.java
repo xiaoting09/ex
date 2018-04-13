@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 @Component
 public class ServiceExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
-    public static Logger log = Logger.getLogger(ServiceExThread.class.toString());
     private static ExClientListService service;
 
     public static void addExceptionVo(ExceptionVo vo) {

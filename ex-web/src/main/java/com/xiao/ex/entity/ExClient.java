@@ -35,6 +35,11 @@ public class ExClient implements Serializable {
      * 异常通知手机号
      */
     private String phone;
+    /**
+     * 钉钉token
+     */
+    @Column(name = "dingding_token")
+    private String dingdingToken;
 
     /**
      * 创建时间
@@ -138,5 +143,13 @@ public class ExClient implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDingdingToken() {
+        return dingdingToken;
+    }
+
+    public void setDingdingToken(String dingdingToken) {
+        this.dingdingToken = dingdingToken;
     }
 }

@@ -1,9 +1,12 @@
 package com.xiao.ex.service.impl;
 
+import com.xiao.ex.entity.ExClient;
+import com.xiao.ex.entity.ExClientData;
 import com.xiao.ex.entity.ExConfig;
 import com.xiao.ex.service.ConfigService;
 import com.xiao.ex.service.MsgService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,7 +34,10 @@ public class EmailMsgServiceImpl implements MsgService {
     private String username;
 
     @Override
-    public void sendMsg(String to, String content) {
+    public void sendMsg(ExClient client, ExClientData data) {
+        if (StringUtils.isEmpty(client.getEmail())){
+            return;
+        }
         JavaMailSender emailConf = getEmailConf();
         if (emailConf == null) {
             emailConf = javaMailSender;
@@ -43,8 +49,8 @@ public class EmailMsgServiceImpl implements MsgService {
             helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setSubject("异常通知邮件");
             helper.setFrom(username);
-            helper.setTo(to.split(","));
-            helper.setText(content);
+            helper.setTo(client.getEmail().split(","));
+            helper.setText(data.getMsg());
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();

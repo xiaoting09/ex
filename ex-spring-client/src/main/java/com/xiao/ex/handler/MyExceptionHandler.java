@@ -1,8 +1,8 @@
 package com.xiao.ex.handler;
 
-import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.thread.ClinetExThread;
 import com.xiao.ex.utils.ExcetionToThread;
+import com.xiao.ex.utils.RefreshServerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -21,15 +21,18 @@ import javax.servlet.http.HttpServletResponse;
 public class MyExceptionHandler extends ExcetionToThread implements HandlerExceptionResolver, Ordered {
     @Value("${rmi.host:host}")
     private String host;
+    @Value("${http.host:httpHost}")
+    private String httpHost;
     @Value("${rmi.port:-1}")
-    private Integer port;
+    private String port;
     @Value("${rmi.time:60000}")
     private Long time;
 
     @PostConstruct
     private void init() {
-        RegistryService.setHost(host);
-        RegistryService.setPort(port);
+        RefreshServerFactory.httpHost = httpHost;
+        RefreshServerFactory.rpcPort = port;
+        RefreshServerFactory.rpcHost = host;
         ClinetExThread.getInstance(time);
     }
 

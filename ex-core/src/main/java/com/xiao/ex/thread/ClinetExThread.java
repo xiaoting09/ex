@@ -1,9 +1,12 @@
 package com.xiao.ex.thread;
 
+import com.google.gson.Gson;
 import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
 import com.xiao.ex.rpc.RegistryService;
+import com.xiao.ex.utils.HttpClientUtil;
+import com.xiao.ex.utils.RefreshServerFactory;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -56,9 +59,16 @@ public class ClinetExThread implements Runnable {
      */
     private void sendServiceMsg(ExceptionVo vo) {
         try {
-            ExceptionService server = (ExceptionService) RegistryService.getRegistry();
-            Result result = server.sendMsg(vo);
-            log.info("____异常上传结果:" + result.toString());
+            String resultStr = null;
+            if (RefreshServerFactory.isHttp()) {
+                Gson gson = new Gson();
+                resultStr = HttpClientUtil.postJson(RefreshServerFactory.httpHost, gson.toJson(vo));
+            } else {
+                ExceptionService server = (ExceptionService) RegistryService.getRegistry();
+                Result result = server.sendMsg(vo);
+                resultStr = result.toString();
+            }
+            log.info("____异常上传结果:" + resultStr);
         } catch (Exception e) {
             e.printStackTrace();
         }

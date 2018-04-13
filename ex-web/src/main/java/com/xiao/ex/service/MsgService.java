@@ -1,6 +1,9 @@
 package com.xiao.ex.service;
 
 
+import com.xiao.ex.entity.ExClient;
+import com.xiao.ex.entity.ExClientData;
+
 /**
  * 消息发送通知服务
  *
@@ -11,8 +14,8 @@ public interface MsgService {
     /**
      * 发送消息
      *
-     * @param to      发送账户
-     * @param content 发送内容
+     * @param client      发送账户
+     * @param data    发送内容
      */
-    void sendMsg(String to, String content) ;
+    void sendMsg(ExClient client, ExClientData data) ;
 }

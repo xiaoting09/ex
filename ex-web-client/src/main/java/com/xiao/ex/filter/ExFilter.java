@@ -4,10 +4,7 @@ package com.xiao.ex.filter;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.thread.ClinetExThread;
-import com.xiao.ex.utils.ExcetionToThread;
-import com.xiao.ex.utils.IpUtils;
-import com.xiao.ex.utils.PostServletRequest;
-import com.xiao.ex.utils.ValueToStr;
+import com.xiao.ex.utils.*;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -24,15 +21,10 @@ import java.util.Objects;
 public class ExFilter extends ExcetionToThread implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        String host = filterConfig.getInitParameter("host");
-        String port = filterConfig.getInitParameter("port");
+        RefreshServerFactory.rpcHost = filterConfig.getInitParameter("rmi.host");
+        RefreshServerFactory.rpcPort= filterConfig.getInitParameter("rmi.port");
+        RefreshServerFactory.httpHost= filterConfig.getInitParameter("http.port");
         String time = filterConfig.getInitParameter("time");
-        if (host != null && host.trim().length() > 0) {
-            RegistryService.host = host;
-        }
-        if (port != null && port.trim().length() > 0) {
-            RegistryService.port = Integer.valueOf(port);
-        }
         if (time == null || time.length() == 0) {
             time = "60000";
         }
@@ -45,7 +37,8 @@ public class ExFilter extends ExcetionToThread implements Filter {
         String enctype = httpRequest.getContentType();
         String body = null;
         String method = httpRequest.getMethod();
-        if (Objects.equals(method.toLowerCase(), "post")
+        if (method != null &&
+                Objects.equals(method.toLowerCase(), "post")
                 && enctype != null && "application/json".equals(enctype.toLowerCase())) {
             body = getBody((HttpServletRequest) request);
             request = getRequest(request, body);

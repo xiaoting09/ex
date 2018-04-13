@@ -3,7 +3,9 @@ buildscript {
         springBootVersion = '1.5.7.RELEASE'
     }
     repositories {
+        mavenLocal()
         maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -23,6 +25,7 @@ dependencies {
     compile('com.alibaba:druid:1.0.28')
     compile('com.google.guava:guava:19.0')
     compile project(':ex-core')
+
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

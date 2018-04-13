@@ -79,6 +79,9 @@ public class ClinetController {
         if (StringUtils.isNotBlank(reqVo.getIp())) {
             client.setIp(reqVo.getIp());
         }
+        if (StringUtils.isNotBlank(reqVo.getDingdingToken())) {
+            client.setDingdingToken(reqVo.getDingdingToken());
+        }
         if (StringUtils.isNotBlank(reqVo.getRemarks())) {
             client.setRemarks(reqVo.getRemarks());
         } else {
@@ -101,6 +104,7 @@ public class ClinetController {
         client.setType(Boolean.FALSE);
         client.setPhone(reqVo.getPhone());
         client.setEmail(reqVo.getEmail());
+        client.setDingdingToken(reqVo.getDingdingToken());
         clientService.insertExClient(client);
         return new Result();
     }
