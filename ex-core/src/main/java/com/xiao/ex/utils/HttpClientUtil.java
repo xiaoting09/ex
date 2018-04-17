@@ -1,5 +1,7 @@
 package com.xiao.ex.utils;
 
+import com.google.gson.Gson;
+import com.xiao.ex.core.vo.req.ExceptionVo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -22,10 +24,7 @@ import javax.net.ssl.SSLContext;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -199,10 +198,8 @@ public class HttpClientUtil {
                 return null;
             }
             httpPost.setHeader("Content-Type", CONTENT_TYPE_JSON);
-            httpPost.setHeader("Accept", "application/json");
             httpPost.setEntity(stringEntity);
-            return execute(httpClient, httpPost);
-        }, true);
+            return execute(httpClient, httpPost)
     }
 
     /**
@@ -237,7 +234,6 @@ public class HttpClientUtil {
             stringEntity = new StringEntity(json.toString(), CHARSET_UTF_8);
             stringEntity.setContentEncoding(CHARSET_UTF_8);
             httpPost.setHeader("Content-Type", CONTENT_TYPE_JSON);
-            httpPost.setHeader("Accept", "application/json");
             httpPost.setEntity(stringEntity);
             return execute(httpClient, httpPost);
         }, false);
