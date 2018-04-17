@@ -1,6 +1,7 @@
 package com.xiao.ex.thread;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
@@ -23,6 +24,9 @@ public class ClinetExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
     private static ClinetExThread instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+    public static Gson gson = new GsonBuilder().
+            setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .create();
 
     private ClinetExThread() {
     }
@@ -61,8 +65,7 @@ public class ClinetExThread implements Runnable {
         try {
             String resultStr = null;
             if (RefreshServerFactory.isHttp()) {
-                Gson gson = new Gson();
-                resultStr = HttpClientUtil.postJson(RefreshServerFactory.httpHost+"/ex/refreshExList", gson.toJson(vo));
+                resultStr = HttpClientUtil.postJson(RefreshServerFactory.httpHost + "/ex/refreshExList", gson.toJson(vo));
             } else {
                 ExceptionService server = (ExceptionService) RegistryService.getRegistry();
                 Result result = server.sendMsg(vo);
