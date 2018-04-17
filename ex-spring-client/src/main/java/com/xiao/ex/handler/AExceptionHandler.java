@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 public class AExceptionHandler extends ExcetionToThread implements HandlerExceptionResolver, Ordered {
     @Value("${rmi.host:host}")
-    private String host;
+    private String rmiHost;
     @Value("${http.host:httpHost}")
     private String httpHost;
     @Value("${rmi.port:-1}")
@@ -30,9 +30,15 @@ public class AExceptionHandler extends ExcetionToThread implements HandlerExcept
 
     @PostConstruct
     private void init() {
-        RefreshServerFactory.httpHost = httpHost;
-        RefreshServerFactory.rpcPort = port;
-        RefreshServerFactory.rpcHost = host;
+        if (httpHost != null && !"httpHost".equals(httpHost)) {
+            RefreshServerFactory.httpHost = httpHost;
+        }
+        if (port != null && !"-1".equals(port)) {
+            RefreshServerFactory.rpcPort = port;
+        }
+        if (rmiHost != null && !"host".equals(rmiHost)) {
+            RefreshServerFactory.rpcHost = rmiHost;
+        }
         ClinetExThread.getInstance(time);
     }
 
@@ -47,5 +53,38 @@ public class AExceptionHandler extends ExcetionToThread implements HandlerExcept
         return Integer.MIN_VALUE;
     }
 
+    public String getRmiHost() {
+        return rmiHost;
+    }
 
+    public void setRmiHost(String rmiHost) {
+        this.rmiHost = rmiHost;
+        RefreshServerFactory.rpcHost = rmiHost;
+    }
+
+    public String getHttpHost() {
+        return httpHost;
+    }
+
+    public void setHttpHost(String httpHost) {
+        this.httpHost = httpHost;
+        RefreshServerFactory.httpHost = httpHost;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+        RefreshServerFactory.rpcPort = port;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 }
