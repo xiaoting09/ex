@@ -199,7 +199,8 @@ public class HttpClientUtil {
             }
             httpPost.setHeader("Content-Type", CONTENT_TYPE_JSON);
             httpPost.setEntity(stringEntity);
-            return execute(httpClient, httpPost)
+            return execute(httpClient, httpPost);
+        }, true);
     }
 
     /**
@@ -351,5 +352,6 @@ public class HttpClientUtil {
         }
         return sslsf;
     }
+
 
 }
