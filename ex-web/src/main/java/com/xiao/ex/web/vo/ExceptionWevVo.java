@@ -14,7 +14,7 @@ public class ExceptionWevVo extends ExceptionVo {
     /**
      * 异常发生时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date exTime;
 
     @Override
