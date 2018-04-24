@@ -2,6 +2,7 @@ package com.xiao.ex.web.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xiao.ex.core.vo.req.ExceptionVo;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,7 +15,7 @@ public class ExceptionWevVo extends ExceptionVo {
     /**
      * 异常发生时间
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date exTime;
 
     @Override

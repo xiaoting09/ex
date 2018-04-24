@@ -65,6 +65,7 @@ public class ClinetExThread implements Runnable {
         try {
             String resultStr = null;
             if (RefreshServerFactory.isHttp()) {
+                System.out.println("ClinetExThread.sendServiceMsg" + gson.toJson(vo));
                 resultStr = HttpClientUtil.postJson(RefreshServerFactory.httpHost + "/ex/refreshExList", gson.toJson(vo));
             } else {
                 ExceptionService server = (ExceptionService) RegistryService.getRegistry();
