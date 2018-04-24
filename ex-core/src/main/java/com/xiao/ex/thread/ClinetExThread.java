@@ -4,8 +4,6 @@ import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
 import com.xiao.ex.rpc.RegistryService;
-import com.xiao.ex.utils.HttpClientUtil;
-import com.xiao.ex.utils.RefreshServerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -65,20 +63,9 @@ public class ClinetExThread implements Runnable {
     private void sendServiceMsg(ExceptionVo vo) {
         try {
             String resultStr = null;
-            if (RefreshServerFactory.isHttp()) {
-                map.put("exTime", myFmt.format(vo.getExTime()));
-                map.put("className", vo.getClassName());
-                map.put("contentType", vo.getContentType());
-                map.put("exception", vo.getException());
-                map.put("ip", vo.getIp());
-                map.put("parameters", vo.getParameters());
-                map.put("type", vo.getType());
-                resultStr = HttpClientUtil.post(RefreshServerFactory.httpHost + "/ex/refreshExList", map);
-            } else {
-                ExceptionService server = (ExceptionService) RegistryService.getRegistry();
-                Result result = server.sendMsg(vo);
-                resultStr = result.toString();
-            }
+            ExceptionService server = (ExceptionService) RegistryService.getRegistry();
+            Result result = server.sendMsg(vo);
+            resultStr = result.toString();
             log.info("____异常上传结果:" + resultStr);
         } catch (Exception e) {
             e.printStackTrace();

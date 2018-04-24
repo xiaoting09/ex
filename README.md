@@ -79,10 +79,6 @@ maven:
             <param-name>rmi.port</param-name>
             <param-value>8886</param-value>
         </init-param>
-         <init-param>
-            <param-name>http.port</param-name>
-            <param-value>http://服务器地址</param-value>
-        </init-param>
         <init-param>
             <param-name>time</param-name>
             <param-value>1000</param-value>
@@ -110,7 +106,7 @@ maven:
 ```
     @Bean
     public MyExceptionHandler masterTransactionManager() {
-        return new MyExceptionHandler();
+        return new AExceptionHandler();
     }
 
 ```
@@ -130,13 +126,11 @@ maven:
 
 ## Spring  接入Demo:
 ```
-   <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.xiao.ex.handler.MyExceptionHandler"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-
+   <bean class="com.xiao.ex.handler.AExceptionHandler">
+       <property name="rmiHost" value="119.23.239.186"/>
+       <property name="port" value="8886"/>
+       <property name="time" value="6000"/>
+   </bean>
 ```
 
 如有问题请联系我QQ:1360379096

@@ -1,5 +1,6 @@
 package com.xiao.ex.utils;
 
+import com.xiao.ex.core.vo.req.ExceptionVo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
@@ -26,6 +27,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,11 +81,11 @@ public class HttpClientUtil {
         connMgr.setValidateAfterInactivity(3000);
         RequestConfig.Builder configBuilder = RequestConfig.custom();
         // 设置连接超时
-        configBuilder.setConnectTimeout(1000 * MAX_TIMEOUT);
+        configBuilder.setConnectTimeout(1000000);
         // 设置读取超时
-        configBuilder.setSocketTimeout(1000 * MAX_TIMEOUT);
+        configBuilder.setSocketTimeout(1000000);
         // 设置从连接池获取连接实例的超时
-        configBuilder.setConnectionRequestTimeout(7 * MAX_TIMEOUT);
+        configBuilder.setConnectionRequestTimeout(100 * MAX_TIMEOUT);
         requestConfig = configBuilder.build();
     }
 
@@ -168,6 +170,8 @@ public class HttpClientUtil {
         log.info("____请求参数:" + params.toString());
         return HttpClient.domain(httpClient -> {
             HttpPost httpPost = httpPostHandler(url, params);
+            httpPost.setProtocolVersion(HttpVersion.HTTP_1_1);
+            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
             return execute(httpClient, httpPost);
         }, true);
     }
@@ -355,8 +359,4 @@ public class HttpClientUtil {
         }
         return sslsf;
     }
-
-
-
-
 }
