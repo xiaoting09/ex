@@ -74,7 +74,7 @@ public class HttpClientUtil {
         connMgr.setMaxTotal(100);
         connMgr.setDefaultMaxPerRoute(connMgr.getMaxTotal());
         /*校验链接*/
-        connMgr.setValidateAfterInactivity(1000);
+        connMgr.setValidateAfterInactivity(3000);
         RequestConfig.Builder configBuilder = RequestConfig.custom();
         // 设置连接超时
         configBuilder.setConnectTimeout(MAX_TIMEOUT);

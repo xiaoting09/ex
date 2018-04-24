@@ -25,7 +25,7 @@ public class ClinetExThread implements Runnable {
     private static ClinetExThread instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
     public static Gson gson = new GsonBuilder().
-            setDateFormat("yyyy-MM-dd HH:mm:ss")
+            setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
             .create();
 
     private ClinetExThread() {
