@@ -23,7 +23,7 @@ public class ExClinetController {
 
     @PostMapping(value = "refreshExList")
     @ResponseBody
-    public String refreshExList(@RequestBody ExceptionWevVo vo) {
+    public String refreshExList(ExceptionWevVo vo) {
         try {
             exceptionService.sendMsg(vo);
         } catch (RemoteException e) {

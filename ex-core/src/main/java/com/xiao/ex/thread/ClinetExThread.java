@@ -1,7 +1,5 @@
 package com.xiao.ex.thread;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.xiao.ex.core.ExceptionService;
 import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
@@ -9,7 +7,10 @@ import com.xiao.ex.rpc.RegistryService;
 import com.xiao.ex.utils.HttpClientUtil;
 import com.xiao.ex.utils.RefreshServerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -24,9 +25,9 @@ public class ClinetExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
     private static ClinetExThread instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-    public static Gson gson = new GsonBuilder().
-            setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-            .create();
+    private static SimpleDateFormat myFmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+
+    private static Map<String, Object> map = new HashMap<>(7);
 
     private ClinetExThread() {
     }
@@ -65,8 +66,14 @@ public class ClinetExThread implements Runnable {
         try {
             String resultStr = null;
             if (RefreshServerFactory.isHttp()) {
-                System.out.println("ClinetExThread.sendServiceMsg" + gson.toJson(vo));
-                resultStr = HttpClientUtil.postJson(RefreshServerFactory.httpHost + "/ex/refreshExList", gson.toJson(vo));
+                map.put("exTime", myFmt.format(vo.getExTime()));
+                map.put("className", vo.getClassName());
+                map.put("contentType", vo.getContentType());
+                map.put("exception", vo.getException());
+                map.put("ip", vo.getIp());
+                map.put("parameters", vo.getParameters());
+                map.put("type", vo.getType());
+                resultStr = HttpClientUtil.post(RefreshServerFactory.httpHost + "/ex/refreshExList", map);
             } else {
                 ExceptionService server = (ExceptionService) RegistryService.getRegistry();
                 Result result = server.sendMsg(vo);
@@ -77,5 +84,7 @@ public class ClinetExThread implements Runnable {
             e.printStackTrace();
         }
     }
+
+
 
 }

@@ -1,9 +1,8 @@
 package com.xiao.ex.utils;
 
-import com.google.gson.Gson;
-import com.xiao.ex.core.vo.req.ExceptionVo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,11 +16,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.*;
@@ -65,7 +67,7 @@ public class HttpClientUtil {
     /**
      * 超时时间
      */
-    private static final int MAX_TIMEOUT = 7000;
+    private static final int MAX_TIMEOUT = 1000;
 
     static {
         // 设置连接池
@@ -77,11 +79,11 @@ public class HttpClientUtil {
         connMgr.setValidateAfterInactivity(3000);
         RequestConfig.Builder configBuilder = RequestConfig.custom();
         // 设置连接超时
-        configBuilder.setConnectTimeout(MAX_TIMEOUT);
+        configBuilder.setConnectTimeout(1000 * MAX_TIMEOUT);
         // 设置读取超时
-        configBuilder.setSocketTimeout(MAX_TIMEOUT);
+        configBuilder.setSocketTimeout(1000 * MAX_TIMEOUT);
         // 设置从连接池获取连接实例的超时
-        configBuilder.setConnectionRequestTimeout(MAX_TIMEOUT);
+        configBuilder.setConnectionRequestTimeout(7 * MAX_TIMEOUT);
         requestConfig = configBuilder.build();
     }
 
@@ -198,6 +200,7 @@ public class HttpClientUtil {
                 return null;
             }
             httpPost.setHeader("Content-Type", CONTENT_TYPE_JSON);
+            httpPost.setProtocolVersion(HttpVersion.HTTP_1_1);
             httpPost.setEntity(stringEntity);
             return execute(httpClient, httpPost);
         }, true);
@@ -352,6 +355,8 @@ public class HttpClientUtil {
         }
         return sslsf;
     }
+
+
 
 
 }
