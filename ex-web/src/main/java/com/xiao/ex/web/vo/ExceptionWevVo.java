@@ -15,7 +15,7 @@ public class ExceptionWevVo extends ExceptionVo {
     /**
      * 异常发生时间
      */
-    @DateTimeFormat(iso=DateTimeFormat.ISO.NONE,pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date exTime;
 
     @Override
