@@ -36,6 +36,7 @@ $(document).ready(function () {
         var state = $("input[type='radio']:checked").val();
         var phone = $("#phone").val();
         var email = $("#email").val();
+        var dingdingToken = $("#dingdingToken").val();
         var data = {};
         if (addId !== null && addId.trim().length > 0) {
             data.id = addId;
@@ -44,6 +45,7 @@ $(document).ready(function () {
         data.remarks = remarks;
         data.state = state;
         data.email = email;
+        data.dingdingToken= dingdingToken;
         data.phone = phone;
         ajaxJson("client/addClient", data, function (data) {
             window.location.href = window.location.href;
