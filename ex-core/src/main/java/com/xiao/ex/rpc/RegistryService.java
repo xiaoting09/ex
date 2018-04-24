@@ -31,6 +31,17 @@ public class RegistryService {
         return registry;
     }
 
+    /**
+     * 重试
+     */
+    public static void refreshAndRetry() {
+        try {
+            registry = Naming.lookup("rmi://" + getHost() + ":" + getPort() + "/exService");
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String getHost() {
         host = RefreshServerFactory.rpcHost;
         if (host == null) {

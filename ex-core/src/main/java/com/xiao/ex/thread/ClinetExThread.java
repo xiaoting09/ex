@@ -5,13 +5,13 @@ import com.xiao.ex.core.vo.req.ExceptionVo;
 import com.xiao.ex.core.vo.resp.Result;
 import com.xiao.ex.rpc.RegistryService;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.rmi.NoSuchObjectException;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -23,9 +23,6 @@ public class ClinetExThread implements Runnable {
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
     private static ClinetExThread instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-    private static SimpleDateFormat myFmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
-    private static Map<String, Object> map = new HashMap<>(7);
 
     private ClinetExThread() {
     }
@@ -66,12 +63,16 @@ public class ClinetExThread implements Runnable {
             ExceptionService server = (ExceptionService) RegistryService.getRegistry();
             Result result = server.sendMsg(vo);
             resultStr = result.toString();
-            log.info("____异常上传结果:" + resultStr);
-        } catch (Exception e) {
+            if (log.isLoggable(Level.INFO)) {
+                log.info("____异常上传结果:" + resultStr);
+            }
+        } catch (NoSuchObjectException suchObjectException) {
+            RegistryService.refreshAndRetry();
+            suchObjectException.printStackTrace();
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

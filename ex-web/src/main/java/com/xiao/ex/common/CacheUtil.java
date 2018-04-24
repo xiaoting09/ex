@@ -20,7 +20,7 @@ public class CacheUtil {
             .build(new CacheLoader<String, AtomicLong>() {
                 @Override
                 public AtomicLong load(String key) throws Exception {
-                    return new AtomicLong(0L);
+                    return new AtomicLong(1L);
                 }
             });
 
