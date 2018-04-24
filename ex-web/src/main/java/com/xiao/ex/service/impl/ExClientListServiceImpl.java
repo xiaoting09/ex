@@ -117,19 +117,18 @@ public class ExClientListServiceImpl implements ExClientListService {
         exClientListMapper.updateByPrimaryKeySelective(exClien);
     }
 
-    /**
-     * TODO:如需扩展手机发送则在此扩展
-     *
-     * @param client
-     * @param msg
-     */
+
     private void sendMsg(ExClient client, ExClientData data) {
         Set<MsgService> msgList = CreteMsgFactory.creteMsgBean();
         if (CollectionUtils.isEmpty(msgList)) {
             return;
         }
         for (MsgService service : msgList) {
-            service.sendMsg(client, data);
+            try {
+                service.sendMsg(client, data);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
