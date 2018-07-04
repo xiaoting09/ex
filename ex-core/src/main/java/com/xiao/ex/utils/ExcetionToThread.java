@@ -1,7 +1,7 @@
 package com.xiao.ex.utils;
 
 import com.xiao.ex.core.vo.req.ExceptionVo;
-import com.xiao.ex.thread.ClinetExThread;
+import com.xiao.ex.thread.ClientExThread;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
@@ -50,6 +50,6 @@ public class ExcetionToThread {
         sbf.append("");
         vo.setParameters(sbf.toString());
         vo.setType(request.getMethod());
-        ClinetExThread.getInstance(null).addExceptionVo(vo);
+        ClientExThread.getInstance(null).addExceptionVo(vo);
     }
 }

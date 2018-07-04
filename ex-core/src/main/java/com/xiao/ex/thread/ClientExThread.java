@@ -18,19 +18,19 @@ import java.util.logging.Logger;
  * @author 肖亭
  * @since 2017年09月15 16:29
  **/
-public class ClinetExThread implements Runnable {
-    public static Logger log = Logger.getLogger(ClinetExThread.class.toString());
+public class ClientExThread implements Runnable {
+    public static Logger log = Logger.getLogger(ClientExThread.class.toString());
     private static Queue<ExceptionVo> queue = new LinkedList<ExceptionVo>();
-    private static ClinetExThread instance;
+    private static ClientExThread instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
-    private ClinetExThread() {
+    private ClientExThread() {
     }
 
 
-    public static synchronized ClinetExThread getInstance(Long time) {
+    public static synchronized ClientExThread getInstance(Long time) {
         if (instance == null) {
-            instance = new ClinetExThread();
+            instance = new ClientExThread();
             executor.scheduleAtFixedRate(instance, time, time, TimeUnit.MILLISECONDS);
         }
         return instance;

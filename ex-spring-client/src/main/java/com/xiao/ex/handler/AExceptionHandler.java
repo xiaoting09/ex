@@ -1,6 +1,6 @@
 package com.xiao.ex.handler;
 
-import com.xiao.ex.thread.ClinetExThread;
+import com.xiao.ex.thread.ClientExThread;
 import com.xiao.ex.utils.ExcetionToThread;
 import com.xiao.ex.utils.RefreshServerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +39,7 @@ public class AExceptionHandler extends ExcetionToThread implements HandlerExcept
         if (rmiHost != null && !"host".equals(rmiHost)) {
             RefreshServerFactory.rpcHost = rmiHost;
         }
-        ClinetExThread.getInstance(time);
+        ClientExThread.getInstance(time);
     }
 
     @Override

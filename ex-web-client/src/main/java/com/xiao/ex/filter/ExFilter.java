@@ -1,15 +1,12 @@
 package com.xiao.ex.filter;
 
 
-import com.xiao.ex.core.vo.req.ExceptionVo;
-import com.xiao.ex.rpc.RegistryService;
-import com.xiao.ex.thread.ClinetExThread;
+import com.xiao.ex.thread.ClientExThread;
 import com.xiao.ex.utils.*;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -28,7 +25,7 @@ public class ExFilter extends ExcetionToThread implements Filter {
         if (time == null || time.length() == 0) {
             time = "60000";
         }
-        ClinetExThread.getInstance(Long.valueOf(time));
+        ClientExThread.getInstance(Long.valueOf(time));
     }
 
     @Override
