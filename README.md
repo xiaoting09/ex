@@ -98,14 +98,14 @@ maven:
 
 3.将ex-web模块打成jar包单独执行,也可以打成war包放在容器中
 
-4.引入ex-spring-client.jar包，并声明MyExceptionHandler bean,在application.properties中写入rmi.port(web模块的注册端口),rmi.host(web模块的IP地址),rmi.time(上报时间单位毫秒)
+4.引入ex-spring-client.jar包，并声明AExceptionHandler bean,在application.properties中写入rmi.port(web模块的注册端口),rmi.host(web模块的IP地址),rmi.time(上报时间单位毫秒)
 
 
 
 ## SpringBoot接入Demo:
 ```
     @Bean
-    public MyExceptionHandler masterTransactionManager() {
+    public AExceptionHandler masterTransactionManager() {
         return new AExceptionHandler();
     }
 
